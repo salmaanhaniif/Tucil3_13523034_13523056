@@ -20,13 +20,13 @@ public class Board {
         this.y_Exit = 0;
     }
 
-    public Board(int width, int height, Piece primaryPiece, List<Piece> listOfPieces, int x_Exit, int y_Exit) {
+    public Board(int width, int height, int x_Exit, int y_Exit) {
         this.debug = false;
         this.width = width;
         this.height = height;
         this.board = new boolean[height][width];
-        this.primaryPiece = primaryPiece;
-        this.listOfPieces = listOfPieces;
+        this.primaryPiece = null;
+        this.listOfPieces = new ArrayList<Piece>();
         this.x_Exit = x_Exit;
         this.y_Exit = y_Exit;
         // this.listOfPieces = new ArrayList<Piece> (); tidak perlu inisialisasi lagi
@@ -111,7 +111,7 @@ public class Board {
         this.board = board;
     }
 
-    public void addPiece(Piece piece) {
+    public void addPiece(Piece piece, boolean isPrimary) {
         // Check if the piece is already in the list
         for (Piece p : this.listOfPieces) {
             if (p.equal(piece)) {
@@ -141,7 +141,10 @@ public class Board {
             return;
         }
 
-        this.listOfPieces.add(piece);
+        if (isPrimary) primaryPiece = piece;
+        else this.listOfPieces.add(piece);
+
+
         if (piece.getOrientation() == Orientation.VERTICAL) {
             for (int i = 0; i < piece.getSize(); i++) {
                 this.board[piece.getY() + i][piece.getX()] = true;
