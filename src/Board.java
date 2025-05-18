@@ -114,6 +114,38 @@ public class Board {
         return true;
     }
 
+    public boolean isSolved() {
+        // Check if the primary piece is at the exit
+        if (this.primaryPiece.getOrientation() == Orientation.HORIZONTAL) {
+            int x_DistanceToExit = this.x_Exit - this.primaryPiece.getX();
+            Movement dir;
+            // Jika di kiri akan bernilai negatif, jika di kanan akan bernilai positif
+            if (x_DistanceToExit < 0) {
+                x_DistanceToExit = -x_DistanceToExit;
+                dir = Movement.LEFT;
+            } else {
+                dir = Movement.RIGHT;
+            }
+            if (isMovePossible(primaryPiece.getSymbol(), dir, x_DistanceToExit)) {
+                return true;
+            }
+
+        } else if (this.primaryPiece.getOrientation() == Orientation.VERTICAL) {
+            int y_DistanceToExit = this.y_Exit - this.primaryPiece.getY();
+            Movement dir;
+            if (y_DistanceToExit < 0) {
+                y_DistanceToExit = -y_DistanceToExit;
+                dir = Movement.UP;
+            } else {
+                dir = Movement.DOWN;
+            }
+            if (isMovePossible(primaryPiece.getSymbol(), dir, y_DistanceToExit)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int getWidth() {
         return this.width;
     }
