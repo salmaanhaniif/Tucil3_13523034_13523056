@@ -13,6 +13,10 @@ public class Piece {
         this.orientation = orientation;
     }
     
+    public char getSymbol() {
+        return symbol;
+    }
+
     public int getX() {
         return x;
     }
@@ -33,19 +37,19 @@ public class Piece {
         return (x == p.getX() && y == p.getY() && size == p.getSize() && orientation == p.getOrientation());
     }
 
-    public void move(Movement m) {
+    public void move(Movement m, int distance) {
         switch (m) {
             case UP:
-                y--;
+                y -= distance;
                 break;
             case DOWN:
-                y++;
+                y += distance;
                 break;
             case LEFT:
-                x--;
+                x -= distance;
                 break;
             case RIGHT:
-                x++;
+                x += distance;
                 break;
         }
     }
