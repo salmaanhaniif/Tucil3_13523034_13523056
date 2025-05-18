@@ -7,7 +7,7 @@ public class IOHandler {
 
     private static void debugPrint(String message) {
         if (debug) {
-            System.out.println("[debug] " + message);
+            System.out.println("[DEBUG] " + message);
         }
     }
 
@@ -28,14 +28,12 @@ public class IOHandler {
             String line;
 
             if ((line = br.readLine()) == null) {
-                System.out.println("File is invalid.");
-                return;
+                throw new IllegalArgumentException("File is invalid. Expected dimensions.");
             }
 
             String[] dimensions = line.trim().split(" ");
             if (dimensions.length != 2) {
-                System.out.println("File is invalid.");
-                return;
+                throw new IllegalArgumentException("File is invalid. Expected dimensions.");
             }
 
             int rows = Integer.parseInt(dimensions[0]);
@@ -44,8 +42,7 @@ public class IOHandler {
             debugPrint("cols: " + cols);
 
             if ((line = br.readLine()) == null) {
-                System.out.println("File is invalid.");
-                return;
+                throw new IllegalArgumentException("File is invalid. Expected piece count.");
             }
 
             int count = Integer.parseInt(line.trim());
@@ -60,14 +57,12 @@ public class IOHandler {
                 debugPrint("line" + curRow + ": " + line);
                 if (line.trim().equals("K")) {
                     if (foundExit) {
-                        System.out.println("File is invalid. Multiple exits found.");
-                        return;
+                        throw new IllegalArgumentException("File is invalid. Multiple exits found.");
                     }
 
                     int i = line.indexOf('K');
                     if (i >= cols) {
-                        System.out.println("File is invalid. Exit is not on the edge.");
-                        return;
+                        throw new IllegalArgumentException("File is invalid. Exit is not on the edge.");
                     } else {
                         x_exit = i;
                     }
@@ -77,8 +72,7 @@ public class IOHandler {
                     } else if (curRow == rows) {
                         y_exit = rows;
                     } else {
-                        System.out.println("File is invalid. Exit is not on the edge.");
-                        return;
+                        throw new IllegalArgumentException("File is invalid. Exit is not on the edge.");
                     }
 
                     foundExit = true;
@@ -88,8 +82,7 @@ public class IOHandler {
                     for (int i = 0; i < line.length(); i++) {
                         if (line.charAt(i) == 'K') {
                             if (foundExit) {
-                                System.out.println("File is invalid. Multiple exits found.");
-                                return;
+                                throw new IllegalArgumentException("File is invalid. Multiple exits found.");
                             }
 
                             if (curCol == 0) {
@@ -97,8 +90,7 @@ public class IOHandler {
                             } else if (curCol == cols) {
                                 x_exit = cols;
                             } else {
-                                System.out.println("File is invalid. Exit is not on the edge.");
-                                return;
+                                throw new IllegalArgumentException("File is invalid. Exit is not on the edge.");
                             }
 
                             y_exit = curRow;
@@ -107,18 +99,15 @@ public class IOHandler {
                             charBoard[curRow][curCol] = line.charAt(i);
                             curCol++;
                         } else {
-                            System.out.println("File is invalid. Column is too long.");
-                            return;
+                            throw new IllegalArgumentException("File is invalid. Column is too long.");
                         }
                     }
                     if (curCol != cols) {
-                        System.out.println("File is invalid. Column is too short.");
-                        return;
+                        throw new IllegalArgumentException("File is invalid. Column is too short.");
                     }
                     curRow++;
                 } else {
-                    System.out.println("File is invalid. Row is too long.");
-                    return;
+                    throw new IllegalArgumentException("File is invalid. Row is too long.");
                 }
             }
             if (curRow != rows) {
@@ -136,10 +125,72 @@ public class IOHandler {
 
             debugPrint(charBoard);
 
+            int r = 0, c = 0;
+            int created = 0;
+            char[] createdPiece = new char[count + 1];
+            boolean foundPrimary = false;
+            boolean[][] visited = new boolean[rows][cols];
+            while (r < rows) {
+                if (!visited[r][c] && charBoard[r][c] != '.') {
+                    if (created == count + 1) {
+                        throw new IllegalArgumentException("File is invalid. Too many pieces.");
+                    }
+                    char symbol = charBoard[r][c];
+                    for (int i = 0; i < created; i++) {
+                        if (createdPiece[i] == symbol) {
+                            throw new IllegalArgumentException("File is invalid. Duplicate piece.");
+                        }
+                    }
+                    createdPiece[created] = symbol;
+                    created++;
+                    int size = 1;
+                    Orientation orientation;
+                    if (c + 1 < cols && charBoard[r][c + 1] == symbol) {
+                        orientation = Orientation.HORIZONTAL;
+                        while (c + size < cols && charBoard[r][c + size] == symbol) {
+                            visited[r][c + size] = true;
+                            size++;
+                        }
+                    } else if (r + 1 < rows && charBoard[r + 1][c] == symbol) {
+                        orientation = Orientation.VERTICAL;
+                        while (r + size < rows && charBoard[r + size][c] == symbol) {
+                            visited[r + size][c] = true;
+                            size++;
+                        }
+                    } else {
+                        throw new IllegalArgumentException("File is invalid. One sized piece.");
+                    }
+                    if (symbol == 'P') {
+                        debugPrint("primary piece: " + symbol + " pos: (" + c + "," + r + ") size: " + size + " orientation: " + (orientation == Orientation.HORIZONTAL ? "horizontal" : "vertical"));
+                        foundPrimary = true;
+                    } else {
+                        debugPrint("piece: " + symbol + " pos: (" + c + "," + r + ") size: " + size + " orientation: " + (orientation == Orientation.HORIZONTAL ? "horizontal" : "vertical"));
+                    }
+                }
+                visited[r][c] = true;
+                c++;
+                if (c == cols) {
+                    c = 0;
+                    r++;
+                }
+            }
+
+        if (created < count + 1) {
+            throw new IllegalArgumentException("File is invalid. Not enough pieces.");
+        }
+
+        if (!foundPrimary) {
+            throw new IllegalArgumentException("File is invalid. No primary piece.");
+        }
+
+        debugPrint("Input from file done!");
+
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("File not found.");
         } catch (NumberFormatException e) {
-            System.out.println("Error: Invalid file format.");
+            throw e;
+        } catch (IllegalArgumentException e) {
+            throw e;
         }
     }
 }
