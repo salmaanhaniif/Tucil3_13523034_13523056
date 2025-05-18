@@ -5,6 +5,7 @@ public class Board {
     private final int width;
     private final int height;
     private boolean[][] board;
+    private Piece primaryPiece;
     private List<Piece> listOfPieces = new ArrayList<Piece>();
     private int x_Exit;
     private int y_Exit;
@@ -20,6 +21,76 @@ public class Board {
         this.height = height;
         this.board = new boolean[height][width];
         // this.listOfPieces = new ArrayList<Piece> (); tidak perlu inisialisasi lagi
+    }
+
+    public class Move {
+        public Movement direction;
+        public int distance;
+    }
+
+    public class AllPossibleMovesOfAPiece{
+        private Piece piece;
+        // private Board board;
+        private List<Move> possibleMoves;
+
+        public AllPossibleMovesOfAPiece(Piece piece, Board board) {
+            this.piece = piece;
+            // this.board = board;
+            this.possibleMoves = generateAllPossibleMoves(board);
+        }
+
+        public char getSymbol() {
+            return piece.getSymbol();
+        }
+
+        public Move newMove(Movement direction, int distance) {
+            Move move = new Move();
+            move.direction = direction;
+            move.distance = distance;
+            return move;
+        }
+
+        public List<Move> generateAllPossibleMoves(Board board) {
+            List<Move> result = new ArrayList<>();
+            Orientation orientation = piece.getOrientation();
+
+            if (orientation == Orientation.VERTICAL) {
+                for (int i = 1; i <= board.getHeight() - piece.getSize(); i++) {
+                    if (board.isMovePossible(piece.getSymbol(), Movement.UP, i)) {
+                        result.add(newMove(Movement.UP, i));
+                    }
+                    if (board.isMovePossible(piece.getSymbol(), Movement.DOWN, i)) {
+                        result.add(newMove(Movement.DOWN, i));
+                    }
+                }
+            } else if (orientation == Orientation.HORIZONTAL) {
+                for (int i = 1; i <= board.getWidth() - piece.getSize(); i++) {
+                    if (board.isMovePossible(piece.getSymbol(), Movement.LEFT, i)) {
+                        result.add(newMove(Movement.LEFT, i));
+                    }
+                    if (board.isMovePossible(piece.getSymbol(), Movement.RIGHT, i)) {
+                        result.add(newMove(Movement.RIGHT, i));
+                    }
+                }
+            }
+            return result;
+        }
+    }
+
+    public class AllPossibleMoves{
+        private List<AllPossibleMovesOfAPiece> allPosibbleMoves;
+        // private Board board;
+
+        public AllPossibleMoves(Board board) {
+            // this.board = board;
+            this.allPosibbleMoves = new ArrayList<AllPossibleMovesOfAPiece>();
+            for (Piece piece : board.getListOfPieces()) {
+                AllPossibleMovesOfAPiece allPosibbleMovesOfAPiece = new AllPossibleMovesOfAPiece(piece, board);
+                allPosibbleMoves.add(allPosibbleMovesOfAPiece);
+            }
+            AllPossibleMovesOfAPiece primaryPieceMoves = new AllPossibleMovesOfAPiece(board.getPrimaryPiece(), board);
+            allPosibbleMoves.add(primaryPieceMoves);
+        }
     }
 
     public void printDebug(String message) {
@@ -49,6 +120,10 @@ public class Board {
 
     public int getHeight() {
         return this.height;
+    }
+
+    public Piece getPrimaryPiece() {
+        return this.primaryPiece;
     }
 
     public void setExit(int x, int y) {
@@ -124,7 +199,7 @@ public class Board {
         }
     }
 
-    public boolean isMovePossible(char symbol, Movement arah, int distance) {
+    public boolean isMovePossible(char symbol, Movement direction, int distance) {
         Piece piece = getPiece(symbol);
         if (piece == null) {
             printDebug("Piece not found.");
@@ -138,35 +213,35 @@ public class Board {
 
         // 1) Orientation and bounds check
         if (orient == Orientation.VERTICAL) {
-            if (arah == Movement.LEFT || arah == Movement.RIGHT) {
-                printDebug("Piece " + symbol + " cannot move " + arah + " when vertical.");
+            if (direction == Movement.LEFT || direction == Movement.RIGHT) {
+                printDebug("Piece " + symbol + " cannot move " + direction + " when vertical.");
                 return false;
             }
-            if (arah == Movement.UP && y - distance < 0) {
+            if (direction == Movement.UP && y - distance < 0) {
                 printDebug("Piece " + symbol + " would move out of top bounds.");
                 return false;
             }
-            if (arah == Movement.DOWN && y + size - 1 + distance >= getHeight()) {
+            if (direction == Movement.DOWN && y + size - 1 + distance >= getHeight()) {
                 printDebug("Piece " + symbol + " would move out of bottom bounds.");
                 return false;
             }
         } else { // HORIZONTAL
-            if (arah == Movement.UP || arah == Movement.DOWN) {
-                printDebug("Piece " + symbol + " cannot move " + arah + " when horizontal.");
+            if (direction == Movement.UP || direction == Movement.DOWN) {
+                printDebug("Piece " + symbol + " cannot move " + direction + " when horizontal.");
                 return false;
             }
-            if (arah == Movement.LEFT && x - distance < 0) {
+            if (direction == Movement.LEFT && x - distance < 0) {
                 printDebug("Piece " + symbol + " would move out of left bounds.");
                 return false;
             }
-            if (arah == Movement.RIGHT && x + size - 1 + distance >= getWidth()) {
+            if (direction == Movement.RIGHT && x + size - 1 + distance >= getWidth()) {
                 printDebug("Piece " + symbol + " would move out of right bounds.");
                 return false;
             }
         }
 
         // 2) Collision check: only check the 'front' cells over the distance
-        switch (arah) {
+        switch (direction) {
             case RIGHT:
                 for (int i = 1; i <= distance; i++) {
                     if (board[y][x + size - 1 + i]) {
@@ -209,12 +284,12 @@ public class Board {
     }
 
 
-    public void updateBoard(Piece piece, Movement arah, int distance) {
+    public void updateBoard(Piece piece, Movement direction, int distance) {
         int x = piece.getX();
         int y = piece.getY();
         int size = piece.getSize();
 
-        switch (arah) {
+        switch (direction) {
         case UP:
             for (int i = 0; i < distance; i++) {
                 // Hapus baris paling bawah
@@ -253,9 +328,9 @@ public class Board {
         }
     }
 
-    public void movePiece(char symbol, Movement arah, int distance) {
-        updateBoard(getPiece(symbol), arah, distance);
-        getPiece(symbol).move(arah, distance);
+    public void movePiece(char symbol, Movement direction, int distance) {
+        updateBoard(getPiece(symbol), direction, distance);
+        getPiece(symbol).move(direction, distance);
     }
 
     public Piece getPiece(char symbol) {
