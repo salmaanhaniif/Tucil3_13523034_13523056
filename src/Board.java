@@ -63,14 +63,14 @@ public class Board {
         // Check if the primary piece is at the exit
         if (this.primaryPiece.getOrientation() == Orientation.HORIZONTAL) {
             int x_DistanceToExit = this.x_Exit - this.primaryPiece.getX();
-            Movement dir;
+            Direction dir;
             // Jika di kiri akan bernilai negatif, jika di kanan akan bernilai positif
             if (x_DistanceToExit < 0) {
                 x_DistanceToExit = -x_DistanceToExit;
-                dir = Movement.LEFT;
+                dir = Direction.LEFT;
             } else {
                 x_DistanceToExit = x_DistanceToExit - this.primaryPiece.getSize();
-                dir = Movement.RIGHT;
+                dir = Direction.RIGHT;
             }
             if (isMovePossible(primaryPiece.getSymbol(), dir, x_DistanceToExit)) {
                 return true;
@@ -78,13 +78,13 @@ public class Board {
 
         } else if (this.primaryPiece.getOrientation() == Orientation.VERTICAL) {
             int y_DistanceToExit = this.y_Exit - this.primaryPiece.getY();
-            Movement dir;
+            Direction dir;
             if (y_DistanceToExit < 0) {
                 y_DistanceToExit = -y_DistanceToExit;
-                dir = Movement.UP;
+                dir = Direction.UP;
             } else {
                 y_DistanceToExit = y_DistanceToExit - this.primaryPiece.getSize();
-                dir = Movement.DOWN;
+                dir = Direction.DOWN;
             }
             if (isMovePossible(primaryPiece.getSymbol(), dir, y_DistanceToExit)) {
                 return true;
@@ -188,7 +188,7 @@ public class Board {
         }
     }
 
-    public boolean isMovePossible(char symbol, Movement direction, int distance) {
+    public boolean isMovePossible(char symbol, Direction direction, int distance) {
         Piece piece = getPiece(symbol);
         if (piece == null) {
             printDebug("Piece not found.");
@@ -202,28 +202,28 @@ public class Board {
 
         // 1) Orientation and bounds check
         if (orient == Orientation.VERTICAL) {
-            if (direction == Movement.LEFT || direction == Movement.RIGHT) {
+            if (direction == Direction.LEFT || direction == Direction.RIGHT) {
                 printDebug("Piece " + symbol + " cannot move " + direction + " when vertical.");
                 return false;
             }
-            if (direction == Movement.UP && y - distance < 0) {
+            if (direction == Direction.UP && y - distance < 0) {
                 printDebug("Piece " + symbol + " would move out of top bounds.");
                 return false;
             }
-            if (direction == Movement.DOWN && y + size - 1 + distance >= getHeight()) {
+            if (direction == Direction.DOWN && y + size - 1 + distance >= getHeight()) {
                 printDebug("Piece " + symbol + " would move out of bottom bounds.");
                 return false;
             }
         } else { // HORIZONTAL
-            if (direction == Movement.UP || direction == Movement.DOWN) {
+            if (direction == Direction.UP || direction == Direction.DOWN) {
                 printDebug("Piece " + symbol + " cannot move " + direction + " when horizontal.");
                 return false;
             }
-            if (direction == Movement.LEFT && x - distance < 0) {
+            if (direction == Direction.LEFT && x - distance < 0) {
                 printDebug("Piece " + symbol + " would move out of left bounds.");
                 return false;
             }
-            if (direction == Movement.RIGHT && x + size - 1 + distance >= getWidth()) {
+            if (direction == Direction.RIGHT && x + size - 1 + distance >= getWidth()) {
                 printDebug("Piece " + symbol + " would move out of right bounds.");
                 return false;
             }
@@ -273,7 +273,7 @@ public class Board {
     }
 
 
-    public void updateBoard(Piece piece, Movement direction, int distance) {
+    public void updateBoard(Piece piece, Direction direction, int distance) {
         int x = piece.getX();
         int y = piece.getY();
         int size = piece.getSize();
@@ -317,7 +317,7 @@ public class Board {
         }
     }
 
-    public void movePiece(char symbol, Movement direction, int distance) {
+    public void movePiece(char symbol, Direction direction, int distance) {
         updateBoard(getPiece(symbol), direction, distance);
         getPiece(symbol).move(direction, distance);
     }
@@ -445,6 +445,123 @@ public class Board {
         }
         return code;
     }
+
+    public void printColouredBoard(State.Movement m) {
+        // Board of Characters
+        char[][] charBoard = new char[this.height + 2][this.width + 2];
+
+        // Fill the board with '.'
+        for (int i = 1; i < this.height + 1; i++) {
+            for (int j = 1; j < this.width + 1; j++) {
+                charBoard[i][j] = '.';
+            }
+        }
+
+        // Board of Pieces
+        // Primary Piece
+        if (this.primaryPiece != null) {
+            if (this.primaryPiece.getOrientation() == Orientation.VERTICAL) {
+                for (int i = 0; i<this.primaryPiece.getSize(); i++) {
+                    charBoard[(this.primaryPiece.getY()+1) + i][(this.primaryPiece.getX()+1)] = this.primaryPiece.getSymbol();
+                }
+            }
+            else if (this.primaryPiece.getOrientation() == Orientation.HORIZONTAL) {
+                for (int i = 0; i<this.primaryPiece.getSize(); i++) {
+                    charBoard[(this.primaryPiece.getY()+1)][(this.primaryPiece.getX()+1) + i] = this.primaryPiece.getSymbol();
+                }
+            }
+        }
+        // Other Pieces
+        for (Piece piece : this.listOfPieces) {
+            if (piece.getOrientation() == Orientation.VERTICAL) {
+                for (int i = 0; i<piece.getSize(); i++) {
+                    charBoard[(piece.getY()+1) + i][(piece.getX()+1)] = piece.getSymbol();
+                }
+            }
+            else if (piece.getOrientation() == Orientation.HORIZONTAL) {
+                for (int i = 0; i<piece.getSize(); i++) {
+                    charBoard[(piece.getY()+1)][(piece.getX()+1) + i] = piece.getSymbol();
+                }
+            }
+        }
+
+        Piece movedPiece = getPiece(m.getSymbol());
+        int x_Initial;
+        int y_Initial;
+        int x_Final;
+        int y_Final;
+        if (m.direction == Direction.DOWN) {
+            x_Initial = movedPiece.getX();
+            x_Final = movedPiece.getX();
+            y_Initial = movedPiece.getY() - m.getDistance();
+            y_Final = movedPiece.getY()+ movedPiece.getSize();
+        } else if (m.direction == Direction.UP) {
+            x_Initial = movedPiece.getX();
+            x_Final = movedPiece.getX();
+            y_Initial = movedPiece.getY() - m.getDistance() + 1;
+            y_Final = movedPiece.getY() + movedPiece.getSize();
+        } else if (m.direction == Direction.LEFT) {
+            x_Initial = movedPiece.getX() - m.getDistance() + 1;
+            x_Final = movedPiece.getX() + movedPiece.getSize();
+            y_Initial = movedPiece.getY();
+            y_Final = movedPiece.getY();
+        } else { // RIGHT
+            x_Initial = movedPiece.getX() - m.getDistance();
+            x_Final = movedPiece.getX() + movedPiece.getSize();
+            y_Initial = movedPiece.getY();
+            y_Final = movedPiece.getY();
+        }
+
+        // Print the board
+        for (int i = 0; i < this.height+2; i++) {
+            for (int j = 0; j < this.width+2; j++) {
+                if (i==0) {
+                    if (i==y_Exit + 1 && j==x_Exit + 1) {
+                        System.out.print("  ");
+                    } else if (j==0) {
+                        System.out.print("╔═");
+                    } else if (j==this.width+1) {
+                        System.out.print("╗");
+                    } else {
+                        System.out.print("══");
+                    }
+                } else if (i==this.height+1) {
+                    if (i==y_Exit + 1 && j==x_Exit + 1) {
+                        System.out.print("  ");
+                    }
+                    else if (j==0) {
+                        System.out.print("╚═");
+                    } else if (j==this.width+1) {
+                        System.out.print("╝");
+                    } else {
+                        System.out.print("══");
+                    }
+                } else if (j == 0) {
+                    if (i == y_Exit + 1 && j == x_Exit + 1) {
+                        System.out.print(" "); // Kosongkan kiri
+                    } else {
+                        System.out.print("║ ");
+                    }
+                } else if (j == width + 1) {
+                    if (i == y_Exit + 1 && j == x_Exit + 1) {
+                        System.out.print(" "); // Kosongkan kanan
+                    } else {
+                        System.out.print("║");
+                    }
+                } else {
+                    if (i >= y_Initial + 1 && i <= y_Final + 1 && j >= x_Initial + 1 && j <= x_Final + 1 && (m.direction == Direction.RIGHT || m.direction == Direction.LEFT)) {
+                        System.out.print("\u001B[104m\u001B[97m" + charBoard[i][j] + " " + "\u001B[0m");
+                    } else if (i >= y_Initial + 1 && i <= y_Final + 1 && j >= x_Initial + 1 && j <= x_Final + 1 && (m.direction == Direction.UP || m.direction == Direction.DOWN)){
+                        System.out.print("\u001B[104m\u001B[97m" + charBoard[i][j] + "\u001B[0m ");
+                    } else {
+                    System.out.print(charBoard[i][j] + " ");
+                    }
+                }
+            }
+            System.out.println();
+        }
+    }
+    
     // DEBUGGING
     // public static void main(String[] args) {
     //     Board board = new Board(10, 10, 10, 2);

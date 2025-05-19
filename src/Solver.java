@@ -30,13 +30,15 @@ public class Solver {
         // filter berdasarkan apakah sudah pernah dikunjungi state yang similar
         // hitung heuristik dari masing2 state
         // jika belum pernah dikunjungi, masukkan ke dalam prioqueue
-        List<State.Move> allMoves = state.getAllPossibleMoves();
-        for (State.Move move : allMoves) {
+        List<State.Movement> allMoves = state.getAllPossibleMoves();
+        for (State.Movement move : allMoves) {
+            // System.out.println("Move: " + move.symbol + " " + move.direction + " " + move.distance);
             Board newBoard = state.getBoard().clone();
             newBoard.movePiece(move.symbol, move.direction, move.distance);
-
+            
             State newState = new State(newBoard, false, state.cost + 1);
             newState.setParent(state);
+            newState.setMovement(new State.Movement(move.symbol, move.direction, move.distance));
 
             if (!visited.contains(newState.getBoard().hashCodeSigma())) {
                 queue.add(newState);
@@ -86,8 +88,15 @@ public class Solver {
             } else {
                 System.out.println("Step " + (i) + ":");
             }
+            if (s.getMovement() != null) {
+                System.out.println("Move: " + s.getMovement().getSymbol() + " Direction: " + s.getMovement().getDirection() + " Distance: " + s.getMovement().getDistance());
+            }
             i++;
-            s.getBoard().printBoard();
+            if (s.getMovement() == null) {
+                s.getBoard().printBoard();
+            } else {
+                s.getBoard().printColouredBoard(s.getMovement());
+            }
         }
         State lastState = path.get(path.size() - 1);
         lastState.getBoard().removePiece(lastState.getBoard().getPrimaryPiece().getSymbol());

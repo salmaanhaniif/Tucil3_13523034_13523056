@@ -1,4 +1,4 @@
-public enum Movement {
+public enum Direction {
     UP,
     DOWN,
     LEFT,

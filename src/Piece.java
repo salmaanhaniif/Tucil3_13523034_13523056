@@ -37,7 +37,7 @@ public class Piece {
         return (x == p.getX() && y == p.getY() && size == p.getSize() && orientation == p.getOrientation());
     }
 
-    public void move(Movement m, int distance) {
+    public void move(Direction m, int distance) {
         switch (m) {
             case UP:
                 y -= distance;
