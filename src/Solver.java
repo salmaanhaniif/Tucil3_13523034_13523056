@@ -18,7 +18,8 @@ public class Solver {
     private State solutionState = null;
     private boolean isSolved = false;
 
-    public Solver(Algorithm algorithm) {
+    public Solver(Algorithm algorithm, Board board) {
+        this.board = board;
         this.algorithm = algorithm;
     }
 

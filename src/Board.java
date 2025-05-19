@@ -354,14 +354,11 @@ public class Board {
             }
         }
 
-        this.x_Exit = this.x_Exit + 1;
-        this.y_Exit = this.y_Exit + 1;
-
         // Print the board
         for (int i = 0; i < this.height+2; i++) {
             for (int j = 0; j < this.width+2; j++) {
                 if (i==0) {
-                    if (i==y_Exit && j==x_Exit) {
+                    if (i==y_Exit + 1 && j==x_Exit + 1) {
                         System.out.print("  ");
                     } else if (j==0) {
                         System.out.print("╔═");
@@ -371,7 +368,7 @@ public class Board {
                         System.out.print("══");
                     }
                 } else if (i==this.height+1) {
-                    if (i==y_Exit && j==x_Exit) {
+                    if (i==y_Exit + 1 && j==x_Exit + 1) {
                         System.out.print("  ");
                     }
                     else if (j==0) {
@@ -382,13 +379,13 @@ public class Board {
                         System.out.print("══");
                     }
                 } else if (j == 0) {
-                    if (i == y_Exit && j == x_Exit) {
+                    if (i == y_Exit + 1 && j == x_Exit + 1) {
                         System.out.print(" "); // Kosongkan kiri
                     } else {
                         System.out.print("║ ");
                     }
                 } else if (j == width + 1) {
-                    if (i == y_Exit && j == x_Exit) {
+                    if (i == y_Exit + 1 && j == x_Exit + 1) {
                         System.out.print(" "); // Kosongkan kanan
                     } else {
                         System.out.print("║");
@@ -414,62 +411,61 @@ public class Board {
         }
     }
     // DEBUGGING
-    public static void main(String[] args) {
-        Board board = new Board();
-        board.setExit(4, 2);
+    // public static void main(String[] args) {
+    //     Board board = new Board(10, 10, 10, 2);
 
-        Piece piece1 = new Piece('A', 1, 1, 3, Orientation.HORIZONTAL);
-        Piece piece2 = new Piece('B', 3, 1, 2, Orientation.HORIZONTAL);
-        Piece piece3 = new Piece('C', 0, 0, 5, Orientation.HORIZONTAL);
-        Piece piece4 = new Piece('D', 3, 0, 2, Orientation.VERTICAL);
+    //     Piece piece1 = new Piece('A', 1, 1, 3, Orientation.HORIZONTAL);
+    //     Piece piece2 = new Piece('B', 3, 1, 2, Orientation.HORIZONTAL);
+    //     Piece piece3 = new Piece('C', 0, 0, 5, Orientation.HORIZONTAL);
+    //     Piece piece4 = new Piece('D', 3, 0, 2, Orientation.VERTICAL);
         
-        board.addPiece(piece1, false);
-        board.addPiece(piece2, false);
-        board.addPiece(piece3, false);
-        // board.addPiece(piece4);
-        board.printBoard();
-        board.printBooleanBoard();
-        if (board.isMovePossible('A', Movement.LEFT, 2)) {
-            board.movePiece('A', Movement.LEFT, 2);
-        }
-        if (board.isMovePossible('A', Movement.LEFT, 1)) {
-            board.movePiece('A', Movement.LEFT, 1);
-        }
-        board.addPiece(piece4, false);
-        board.printBoard();
-        board.printBooleanBoard();
-        if (board.isMovePossible('D', Movement.LEFT, 1)) {
-            board.movePiece('D', Movement.LEFT, 1);
-        }
-        if (board.isMovePossible('D', Movement.DOWN, 1)) {
-            board.movePiece('D', Movement.DOWN, 1);
-        }
-        board.printBoard();
-        board.printBooleanBoard();
-        if (board.isMovePossible('D', Movement.DOWN, 2)) {
-            board.movePiece('D', Movement.DOWN, 2);
-        }
-        if (board.isMovePossible('D', Movement.UP, 1)) {
-            board.movePiece('D', Movement.UP, 1);
-        }
-        if (board.isMovePossible('A', Movement.RIGHT, 1)) {
-            board.movePiece('A', Movement.RIGHT, 1);
-        }
-        board.printBoard();
-        board.printBooleanBoard();
-        board.removePiece('D');
-        board.printBoard();
-        board.printBooleanBoard();
-        if (board.isMovePossible('A', Movement.RIGHT, 1)) {
-            board.movePiece('A', Movement.RIGHT, 1);
-        }
-        board.printBoard();
-        board.printBooleanBoard();
-        if (board.isMovePossible('A', Movement.RIGHT, 1)) {
-            board.movePiece('A', Movement.RIGHT, 1);
-        }
-        if (board.isMovePossible('A', Movement.UP, 1)) {
-            board.movePiece('A', Movement.UP, 1);
-        }
-    }
+    //     board.addPiece(piece1, false);
+    //     board.addPiece(piece2, false);
+    //     board.addPiece(piece3, false);
+    //     board.addPiece(piece4, false);
+    //     board.printBoard();
+    //     board.printBooleanBoard();
+    //     if (board.isMovePossible('A', Movement.LEFT, 2)) {
+    //         board.movePiece('A', Movement.LEFT, 2);
+    //     }
+    //     if (board.isMovePossible('A', Movement.LEFT, 1)) {
+    //         board.movePiece('A', Movement.LEFT, 1);
+    //     }
+    //     board.addPiece(piece4, false);
+    //     board.printBoard();
+    //     board.printBooleanBoard();
+    //     if (board.isMovePossible('D', Movement.LEFT, 1)) {
+    //         board.movePiece('D', Movement.LEFT, 1);
+    //     }
+    //     if (board.isMovePossible('D', Movement.DOWN, 1)) {
+    //         board.movePiece('D', Movement.DOWN, 1);
+    //     }
+    //     board.printBoard();
+    //     board.printBooleanBoard();
+    //     if (board.isMovePossible('D', Movement.DOWN, 2)) {
+    //         board.movePiece('D', Movement.DOWN, 2);
+    //     }
+    //     if (board.isMovePossible('D', Movement.UP, 1)) {
+    //         board.movePiece('D', Movement.UP, 1);
+    //     }
+    //     if (board.isMovePossible('A', Movement.RIGHT, 1)) {
+    //         board.movePiece('A', Movement.RIGHT, 1);
+    //     }
+    //     board.printBoard();
+    //     board.printBooleanBoard();
+    //     board.removePiece('D');
+    //     board.printBoard();
+    //     board.printBooleanBoard();
+    //     if (board.isMovePossible('A', Movement.RIGHT, 1)) {
+    //         board.movePiece('A', Movement.RIGHT, 1);
+    //     }
+    //     board.printBoard();
+    //     board.printBooleanBoard();
+    //     if (board.isMovePossible('A', Movement.RIGHT, 1)) {
+    //         board.movePiece('A', Movement.RIGHT, 1);
+    //     }
+    //     if (board.isMovePossible('A', Movement.UP, 1)) {
+    //         board.movePiece('A', Movement.UP, 1);
+    //     }
+    // }
 }
