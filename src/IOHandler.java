@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 public class IOHandler {
     static boolean debug = true;
@@ -24,6 +26,11 @@ public class IOHandler {
     }
 
     public static Board inputFromFile(String filePath) {
+        List<Character> validChars = Arrays.asList(
+            'A','B','C','D','E','F','G','H','I','J','L','M',
+            'N','O','Q','R','S','T','U','V','W','X','Y','Z'
+        );
+
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
 
@@ -40,6 +47,9 @@ public class IOHandler {
             debugPrint("rows: " + rows);
             int cols = Integer.parseInt(dimensions[1]);
             debugPrint("cols: " + cols);
+            if (rows <= 0 || cols <= 0) {
+                throw new IllegalArgumentException("File is invalid. Dimensions must be positive.");
+            }
 
             if ((line = br.readLine()) == null) {
                 throw new IllegalArgumentException("File is invalid. Expected piece count.");
@@ -47,8 +57,9 @@ public class IOHandler {
 
             int count = Integer.parseInt(line.trim());
             debugPrint("count: " + count);
-
-            Board board = new Board(cols, rows, 0, 0);
+            if (count > 24 || count < 0) {
+                throw new IllegalArgumentException("File is invalid. Piece count must be between 0 and 24.");
+            }
 
             char[][] charBoard = new char[rows][cols];
             
@@ -123,7 +134,7 @@ public class IOHandler {
             debugPrint("x_exit: " + x_exit);
             debugPrint("y_exit: " + y_exit);
 
-            board.setExit(x_exit, y_exit);
+            Board board = new Board(cols, rows, x_exit, y_exit);
 
             debugPrint(charBoard);
 
@@ -167,10 +178,15 @@ public class IOHandler {
                     if (symbol == 'P') {
                         board.addPiece(piece, true);
                         foundPrimary = true;
+                        if (orientation == Orientation.HORIZONTAL && r != y_exit || orientation == Orientation.VERTICAL && c != x_exit) {
+                            throw new IllegalArgumentException("File is invalid. Primary piece is not aligned with exit.");
+                        }
                         debugPrint("primary piece: " + symbol + " pos: (" + c + "," + r + ") size: " + size + " orientation: " + (orientation == Orientation.HORIZONTAL ? "horizontal" : "vertical"));
-                    } else {
+                    } else if (validChars.contains(symbol)) {
                         board.addPiece(piece, false);
                         debugPrint("piece: " + symbol + " pos: (" + c + "," + r + ") size: " + size + " orientation: " + (orientation == Orientation.HORIZONTAL ? "horizontal" : "vertical"));
+                    } else {
+                        throw new IllegalArgumentException("File is invalid. Invalid piece's symbol.");
                     }
                 }
                 visited[r][c] = true;
