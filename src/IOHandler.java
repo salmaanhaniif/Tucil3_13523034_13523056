@@ -14,7 +14,7 @@ public class IOHandler {
     private static void debugPrint(char[][] messages) {
         if (debug) {
             for (char[] msgs: messages) {
-                System.out.print("[debug] ");
+                System.out.print("[DEBUG] ");
                 for (char s: msgs) {
                     System.out.print(s);
                 }
@@ -23,7 +23,7 @@ public class IOHandler {
         }
     }
 
-    public static void inputFromFile(String filePath) {
+    public static Board inputFromFile(String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
 
@@ -47,6 +47,8 @@ public class IOHandler {
 
             int count = Integer.parseInt(line.trim());
             debugPrint("count: " + count);
+
+            Board board = new Board(cols, rows, 0, 0);
 
             char[][] charBoard = new char[rows][cols];
             
@@ -111,13 +113,11 @@ public class IOHandler {
                 }
             }
             if (curRow != rows) {
-                System.out.println("File is invalid. Row is too short.");
-                return;
+                throw new IllegalArgumentException("File is invalid. Row is too short.");
             }
 
             if (!foundExit) {
-                System.out.println("File is invalid. Exit not found.");
-                return;
+                throw new IllegalArgumentException("File is invalid. Exit not found.");
             }
 
             debugPrint("x_exit: " + x_exit);
@@ -160,10 +160,14 @@ public class IOHandler {
                     } else {
                         throw new IllegalArgumentException("File is invalid. One sized piece.");
                     }
+
+                    Piece piece = new Piece(symbol, c, r, size, orientation);
                     if (symbol == 'P') {
-                        debugPrint("primary piece: " + symbol + " pos: (" + c + "," + r + ") size: " + size + " orientation: " + (orientation == Orientation.HORIZONTAL ? "horizontal" : "vertical"));
+                        board.addPiece(piece, true);
                         foundPrimary = true;
+                        debugPrint("primary piece: " + symbol + " pos: (" + c + "," + r + ") size: " + size + " orientation: " + (orientation == Orientation.HORIZONTAL ? "horizontal" : "vertical"));
                     } else {
+                        board.addPiece(piece, false);
                         debugPrint("piece: " + symbol + " pos: (" + c + "," + r + ") size: " + size + " orientation: " + (orientation == Orientation.HORIZONTAL ? "horizontal" : "vertical"));
                     }
                 }
@@ -182,8 +186,9 @@ public class IOHandler {
         if (!foundPrimary) {
             throw new IllegalArgumentException("File is invalid. No primary piece.");
         }
-
+        
         debugPrint("Input from file done!");
+        return board;
 
         } catch (IOException e) {
             throw new IllegalArgumentException("File not found.");

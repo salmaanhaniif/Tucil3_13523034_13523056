@@ -1,13 +1,16 @@
 import java.util.Scanner;
 
 public class Main {
+
+    static Board initBoard;
+
     public static void configMenu(Scanner scanner) {
         while (true) { 
             System.out.print("Enter file path: ");
             String filePath = scanner.nextLine();
 
             try {
-                IOHandler.inputFromFile(filePath); 
+                initBoard = IOHandler.inputFromFile(filePath); 
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
                 continue;
@@ -51,8 +54,11 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         while (true) { 
+            Board board;
             configMenu(scanner);
             algorithmMenu(scanner);
+
+            initBoard.printBoard();
 
             break;
         }
