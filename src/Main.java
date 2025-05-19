@@ -3,6 +3,8 @@ import java.util.Scanner;
 public class Main {
     private static final boolean debug = true;
     static Board initBoard;
+    static Algorithm algorithm;
+    static Heuristic heuristic;
 
     public static void configMenu(Scanner scanner) {
         while (true) { 
@@ -30,6 +32,44 @@ public class Main {
             System.out.println("2. GBFS");
             System.err.println("3. A*");
             System.out.print("Enter algorithm number: ");
+            String choiceString = scanner.nextLine();
+            
+            int choice;
+            if (debug && choiceString.equals("")) {
+                algorithm = Algorithm.UCS;
+                break;
+            } 
+
+            try {
+                choice = Integer.parseInt(choiceString);
+            } catch (Exception e) {
+                System.out.println("Invalid algorithm number.");
+                continue;
+            }
+            switch (choice) {
+                case 1:
+                    algorithm = Algorithm.UCS;
+                    System.out.println("UCS");
+                    break;
+                case 2:
+                    algorithm = Algorithm.GBFS;
+                    System.out.println("GBFS");
+                    break;
+                case 3:
+                    algorithm = Algorithm.ASTAR;
+                    System.out.println("A*");
+                    break;
+            }
+            if (choice == 1 || choice == 2 || choice == 3) break;
+            else System.out.println("Invalid algorithm number.");
+        }
+    }
+
+    public static void heuristicMenu(Scanner scanner) {
+        while (true) { 
+            System.out.println("Heuristics");
+            System.out.println("1. Manhattan");
+            System.out.print("Enter heuristic number: ");
             String algorithm = scanner.nextLine();
             
             int choice;
@@ -41,22 +81,17 @@ public class Main {
             try {
                 choice = Integer.parseInt(algorithm);
             } catch (Exception e) {
-                System.out.println("Invalid algorithm number.");
+                System.out.println("Invalid heuristic number.");
                 continue;
             }
             switch (choice) {
                 case 1:
-                    System.out.println("UCS");
-                    break;
-                case 2:
-                    System.out.println("GBFS");
-                    break;
-                case 3:
-                    System.out.println("A*");
+                    heuristic = Heuristic.MANHATTAN;
+                    System.out.println("Manhattan");
                     break;
             }
             if (choice == 1 || choice == 2 || choice == 3) break;
-            else System.out.println("Invalid algorithm number.");
+            else System.out.println("Invalid heuristic number.");
         }
     }
 
@@ -66,11 +101,16 @@ public class Main {
             Board board;
             configMenu(scanner);
             algorithmMenu(scanner);
+            if (algorithm == Algorithm.ASTAR || algorithm == Algorithm.GBFS) {
+                heuristicMenu(scanner);
+            } else {
+                heuristic = Heuristic.NONE;
+            }
             
-            Solver solver = new Solver(initBoard, null, null);
+            Solver solver = new Solver(initBoard, algorithm, heuristic);
             solver.solve();
 
-            break;
+            if (scanner.nextLine().trim().equals("exit")) break;
         }
         scanner.close();
     }

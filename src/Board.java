@@ -109,6 +109,14 @@ public class Board {
         return "(" + this.x_Exit + "," + this.y_Exit + ")";
     }
 
+    public int getXExit() {
+        return this.x_Exit;
+    }
+
+    public int getYExit() {
+        return this.y_Exit;
+    }
+
     public void setExit(int x, int y) {
         this.x_Exit = x;
         this.y_Exit = y;
@@ -440,6 +448,7 @@ public class Board {
 
     public String hashCodeSigma() {
         String code = "";
+        code += this.primaryPiece.getSymbol() + this.primaryPiece.getX() + "," + this.primaryPiece.getY();
         for (Piece piece : this.listOfPieces) {
             code += piece.getSymbol() + piece.getX() + "," + piece.getY();
         }
