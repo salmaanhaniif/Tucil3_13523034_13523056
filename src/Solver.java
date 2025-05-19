@@ -35,12 +35,12 @@ public class Solver {
             for (State.Move move : moves.generateAllPossibleMoves(state.getBoard())) {
                 Board newBoard = state.getBoard().clone();
                 newBoard.movePiece(piece.getSymbol(), move.direction, move.distance);
-
+                
+                // Heuristik (?)
+                
                 State newState = new State(newBoard, false, state.cost + 1);
                 newState.setParent(state);
                 
-                // Heuristik (?)
-
                 if (!visited.contains(newState)) {
                     queue.add(newState);
                 }

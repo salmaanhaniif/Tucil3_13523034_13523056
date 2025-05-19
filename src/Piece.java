@@ -53,4 +53,8 @@ public class Piece {
                 break;
         }
     }
+
+    public Piece clone() {
+        return new Piece(symbol, x, y, size, orientation);
+    }
 }
