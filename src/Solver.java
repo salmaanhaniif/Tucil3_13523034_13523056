@@ -15,7 +15,7 @@ public class Solver {
     // prioqueue
     private PriorityQueue<State> queue = new PriorityQueue<>(); // queue of state
     // visited state
-    private Set<State> visited = new HashSet<>();
+    private Set<String> visited = new HashSet<>();
 
     public Solver(Board board, Algorithm algorithm, Heuristic heuristic) {
         this.board = board;
@@ -38,7 +38,7 @@ public class Solver {
             State newState = new State(newBoard, false, state.cost + 1);
             newState.setParent(state);
 
-            if (!visited.contains(newState)) {
+            if (!visited.contains(newState.getBoard().hashCodeSigma())) {
                 queue.add(newState);
             }
         }
@@ -52,7 +52,7 @@ public class Solver {
         queue.add(initialState);
 
         // queue.add(initialState);
-        visited.add(initialState);
+        visited.add(initialState.getBoard().hashCodeSigma());
         
         while (!queue.isEmpty()) {
             State currentState = queue.poll();
@@ -63,7 +63,7 @@ public class Solver {
                 return;
             }
             
-            visited.add(currentState);
+            visited.add(currentState.getBoard().hashCodeSigma());
             explore(currentState);
             // currentState.getBoard().printBoard();
         }

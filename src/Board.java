@@ -437,6 +437,14 @@ public class Board {
             System.out.println();
         }
     }
+
+    public String hashCodeSigma() {
+        String code = "";
+        for (Piece piece : this.listOfPieces) {
+            code += piece.getSymbol() + piece.getX() + "," + piece.getY();
+        }
+        return code;
+    }
     // DEBUGGING
     // public static void main(String[] args) {
     //     Board board = new Board(10, 10, 10, 2);
