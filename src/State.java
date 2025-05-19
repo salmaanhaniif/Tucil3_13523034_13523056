@@ -2,21 +2,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class State {
+    private State parent;
     private Board board;
-    private AllPossibleMoves allPossibleMoves;
+    int cost;
 
-    public State(Board board) {
+    public State(Board board, boolean isInitial, int cost) {
+        if (isInitial) {
+            this.parent = null;
+            this.cost = 0;
+        } else {
+            this.parent = this;
+            this.cost = cost;
+        }
         this.board = board;
-        this.allPossibleMoves = new AllPossibleMoves(board);
     }
 
+    public State getParent() {
+        return this.parent;
+    }
 
-    public class Move {
+    public void setParent(State parent) {
+        this.parent = parent;
+    }
+
+    public Board getBoard() {
+        return this.board;
+    }
+
+    public boolean equals(Board board) {
+        return this.board.isBoardEqual(board);
+    }
+
+    public int hashCode() {
+        return this.board.hashCode();
+    }
+
+    public static class Move {
         public Movement direction;
         public int distance;
     }
 
-    public class AllPossibleMovesOfAPiece{
+    public static class AllPossibleMovesOfAPiece{
         private Piece piece;
         // private Board board;
         private List<Move> possibleMoves;
@@ -27,15 +53,15 @@ public class State {
             this.possibleMoves = generateAllPossibleMoves(board);
         }
 
-        public char getSymbol() {
-            return piece.getSymbol();
-        }
-
         public Move newMove(Movement direction, int distance) {
             Move move = new Move();
             move.direction = direction;
             move.distance = distance;
             return move;
+        }
+
+        public Piece getPiece() {
+            return piece;
         }
 
         public List<Move> generateAllPossibleMoves(Board board) {
@@ -65,9 +91,13 @@ public class State {
         }
     }
 
-    public class AllPossibleMoves{
+    public static class AllPossibleMoves{
         private List<AllPossibleMovesOfAPiece> allPosibbleMoves;
         // private Board board;
+
+        public List<AllPossibleMovesOfAPiece> getAllPossibleMoves() {
+            return allPosibbleMoves;
+        }
 
         public AllPossibleMoves(Board board) {
             // this.board = board;
@@ -78,6 +108,9 @@ public class State {
             }
             AllPossibleMovesOfAPiece primaryPieceMoves = new AllPossibleMovesOfAPiece(board.getPrimaryPiece(), board);
             allPosibbleMoves.add(primaryPieceMoves);
+        }
+        public void add(AllPossibleMovesOfAPiece allPosibbleMovesOfAPiece) {
+            allPosibbleMoves.add(allPosibbleMovesOfAPiece);
         }
     }
 }

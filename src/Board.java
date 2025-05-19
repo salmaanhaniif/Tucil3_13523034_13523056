@@ -32,6 +32,12 @@ public class Board {
         // this.listOfPieces = new ArrayList<Piece> (); tidak perlu inisialisasi lagi
     }
 
+    public Board clone() {
+        Board newBoard = new Board(this.getWidth(), this.getHeight(), this.getPrimaryPiece(), this.getListOfPieces(), this.x_Exit, this.y_Exit);
+        newBoard.setBoard(this.getBoard());
+        return newBoard;
+    }
+
 
     public void printDebug(String message) {
         if (this.debug) {
@@ -54,7 +60,7 @@ public class Board {
         return true;
     }
 
-    public boolean isSolved() {
+    public boolean isGoal() {
         // Check if the primary piece is at the exit
         if (this.primaryPiece.getOrientation() == Orientation.HORIZONTAL) {
             int x_DistanceToExit = this.x_Exit - this.primaryPiece.getX();
