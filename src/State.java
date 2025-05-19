@@ -47,6 +47,10 @@ public class State implements Comparable<State> {
                 this.estimatedCostToGoal = calculateManhattan();
                 IOHandler.debugPrint("MANHATTAN: " + this.estimatedCostToGoal);
                 break;
+            case BLOCKER:
+                this.estimatedCostToGoal = calculateBlocker();
+                IOHandler.debugPrint("BLOCKER: " + this.estimatedCostToGoal);
+                break;
         }
     }
 
@@ -81,6 +85,46 @@ public class State implements Comparable<State> {
         } else {
             return Math.abs(p.getX() - board.getXExit());
         }
+    }
+
+    public final int calculateBlocker() {
+        Piece p = board.getPrimaryPiece();
+        int blocker = 0;
+        int start;
+        if (p.getOrientation() == Orientation.VERTICAL) {
+            if (p.getY() > board.getYExit()) {
+                start = p.getY() - 1;
+                for (int i = start; i >= 0; i--) {
+                    if (board.getBoard()[i][p.getX()]) {
+                        blocker += 1;
+                    }
+                }
+            } else {
+                start = p.getY() + p.getSize();
+                for (int i = start; i < board.getHeight(); i++) {
+                    if (board.getBoard()[i][p.getX()]) {
+                        blocker += 1;
+                    }
+                }
+            }
+        } else if (p.getOrientation() == Orientation.HORIZONTAL) {
+            if (p.getX() > board.getXExit()) {
+                start = p.getX() - 1;
+                for (int i = start; i >= 0; i--) {
+                    if (board.getBoard()[p.getY()][i]) {
+                        blocker += 1;
+                    }
+                }
+            } else {
+                start = p.getX() + p.getSize();
+                for (int i = start; i < board.getWidth(); i++) {
+                    if (board.getBoard()[p.getY()][i]) {
+                        blocker += 1;
+                    }
+                }
+            }
+        }
+        return blocker;
     }
 
     public List<Movement> getAllPossibleMoves() {

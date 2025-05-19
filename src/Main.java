@@ -69,6 +69,7 @@ public class Main {
         while (true) { 
             System.out.println("Heuristics");
             System.out.println("1. Manhattan");
+            System.out.println("2. Blocker Count");
             System.out.print("Enter heuristic number: ");
             String algorithm = scanner.nextLine();
             
@@ -89,8 +90,12 @@ public class Main {
                     heuristic = Heuristic.MANHATTAN;
                     System.out.println("Manhattan");
                     break;
+                case 2:
+                    heuristic = Heuristic.BLOCKER;
+                    System.out.println("Blocker Count");
+                    break;
             }
-            if (choice == 1 || choice == 2 || choice == 3) break;
+            if (choice == 1 || choice == 2) break;
             else System.out.println("Invalid heuristic number.");
         }
     }
