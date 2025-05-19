@@ -1,3 +1,4 @@
 public enum Heuristic {
-    MANHATTAN
+    MANHATTAN,
+    NONE
 }

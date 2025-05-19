@@ -5,13 +5,13 @@ import java.io.IOException;
 public class IOHandler {
     static boolean debug = true;
 
-    private static void debugPrint(String message) {
+    public static void debugPrint(String message) {
         if (debug) {
             System.out.println("[DEBUG] " + message);
         }
     }
 
-    private static void debugPrint(char[][] messages) {
+    public static void debugPrint(char[][] messages) {
         if (debug) {
             for (char[] msgs: messages) {
                 System.out.print("[DEBUG] ");

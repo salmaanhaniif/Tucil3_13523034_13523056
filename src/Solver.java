@@ -9,33 +9,37 @@ import java.util.Set;
 
 public class Solver {
     // Algorithm;
-    private Algorithm algorithm;
-    private Heuristic heuristic;
+    private static Algorithm algorithm;
+    private static Heuristic heuristic;
     Board board; // Inisial state
     // prioqueue
-    private PriorityQueue<State> queue = new PriorityQueue<>(); // queue of state
+    private final PriorityQueue<State> queue;
     // visited state
-    private Set<String> visited = new HashSet<>();
+    private final Set<String> visited;
 
     public Solver(Board board, Algorithm algorithm, Heuristic heuristic) {
         this.board = board;
-        this.algorithm = algorithm;
-        this.heuristic = heuristic;
+        Solver.algorithm = algorithm;
+        Solver.heuristic = heuristic;
+        queue = new PriorityQueue<>();
+        visited = new HashSet<>();
+    }
+
+    public static Algorithm getAlgorithm() {
+        return algorithm;
+    }
+
+    public static Heuristic getHeuristic() {
+        return heuristic;
     }
 
     public void explore(State state) {
-        // dapetin anak state
-        // buat state baru untuk setiap move dari state lama
-        // cek apakah state baru itu goal
-        // filter berdasarkan apakah sudah pernah dikunjungi state yang similar
-        // hitung heuristik dari masing2 state
-        // jika belum pernah dikunjungi, masukkan ke dalam prioqueue
         List<State.Move> allMoves = state.getAllPossibleMoves();
         for (State.Move move : allMoves) {
             Board newBoard = state.getBoard().clone();
             newBoard.movePiece(move.symbol, move.direction, move.distance);
 
-            State newState = new State(newBoard, false, state.cost + 1);
+            State newState = new State(newBoard, false, state.costSoFar + 1);
             newState.setParent(state);
 
             if (!visited.contains(newState.getBoard().hashCodeSigma())) {
