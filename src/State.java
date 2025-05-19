@@ -54,10 +54,6 @@ public class State implements Comparable<State> {
         return this.movement;
     }
 
-    public Movement getMovement() {
-        return this.movement;
-    }
-
     public State getParent() {
         return this.parent;
     }
@@ -87,8 +83,8 @@ public class State implements Comparable<State> {
         }
     }
 
-    public List<Move> getAllPossibleMoves() {
-        List<Move> result = new ArrayList<>();
+    public List<Movement> getAllPossibleMoves() {
+        List<Movement> result = new ArrayList<>();
 
         if (board.getPrimaryPiece().getOrientation() == Orientation.VERTICAL) {
             for (int i = 1; i <= board.getHeight() - board.getPrimaryPiece().getSize(); i++) {
