@@ -1,13 +1,17 @@
 import java.util.Scanner;
 
 public class Main {
-
+    private static final boolean debug = true;
     static Board initBoard;
 
     public static void configMenu(Scanner scanner) {
         while (true) { 
             System.out.print("Enter file path: ");
             String filePath = scanner.nextLine();
+
+            if (debug && filePath.equals("")) {
+                filePath = "test/input.txt";
+            } 
 
             try {
                 initBoard = IOHandler.inputFromFile(filePath); 
@@ -27,8 +31,13 @@ public class Main {
             System.err.println("3. A*");
             System.out.print("Enter algorithm number: ");
             String algorithm = scanner.nextLine();
-
+            
             int choice;
+            if (debug && algorithm.equals("")) {
+                choice = 1;
+                break;
+            } 
+
             try {
                 choice = Integer.parseInt(algorithm);
             } catch (Exception e) {
@@ -57,8 +66,9 @@ public class Main {
             Board board;
             configMenu(scanner);
             algorithmMenu(scanner);
-
-            initBoard.printBoard();
+            
+            Solver solver = new Solver(initBoard, null, null);
+            solver.solve();
 
             break;
         }

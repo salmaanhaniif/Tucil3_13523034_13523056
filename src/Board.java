@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Board {
-    private boolean debug = true;
+    private final boolean debug = true;
     private final int width;
     private final int height;
     private boolean[][] board;
@@ -21,7 +21,6 @@ public class Board {
     }
 
     public Board(int width, int height, int x_Exit, int y_Exit) {
-        this.debug = false;
         this.width = width;
         this.height = height;
         this.board = new boolean[height][width];
@@ -70,6 +69,7 @@ public class Board {
                 x_DistanceToExit = -x_DistanceToExit;
                 dir = Movement.LEFT;
             } else {
+                x_DistanceToExit = x_DistanceToExit - this.primaryPiece.getSize();
                 dir = Movement.RIGHT;
             }
             if (isMovePossible(primaryPiece.getSymbol(), dir, x_DistanceToExit)) {
@@ -83,6 +83,7 @@ public class Board {
                 y_DistanceToExit = -y_DistanceToExit;
                 dir = Movement.UP;
             } else {
+                y_DistanceToExit = y_DistanceToExit - this.primaryPiece.getSize();
                 dir = Movement.DOWN;
             }
             if (isMovePossible(primaryPiece.getSymbol(), dir, y_DistanceToExit)) {
@@ -102,6 +103,10 @@ public class Board {
 
     public Piece getPrimaryPiece() {
         return this.primaryPiece;
+    }
+
+    public String getStringExit() {
+        return "(" + this.x_Exit + "," + this.y_Exit + ")";
     }
 
     public void setExit(int x, int y) {
@@ -138,11 +143,11 @@ public class Board {
             printDebug("Piece " + piece.getSymbol() + " is too long.");
             return;
         }
-        if (piece.getOrientation() == Orientation.HORIZONTAL && (piece.getX()+piece.getSize()) >= this.width) {
+        if (piece.getOrientation() == Orientation.HORIZONTAL && (piece.getX()+piece.getSize()) > this.width) {
             printDebug("Piece " + piece.getSymbol() + " is out of bounds.");
             return;
         }
-        if (piece.getOrientation() == Orientation.VERTICAL && (piece.getY()+piece.getSize()) >= this.height) {
+        if (piece.getOrientation() == Orientation.VERTICAL && (piece.getY()+piece.getSize()) > this.height) {
             printDebug("Piece " + piece.getSymbol() + " is out of bounds.");
             return;
         }
@@ -169,6 +174,9 @@ public class Board {
             return;
         }
         this.listOfPieces.remove(piece);
+        if (piece.getSymbol() == this.primaryPiece.getSymbol()) {
+            this.primaryPiece = null;
+        }
         if (piece.getOrientation() == Orientation.VERTICAL) {
             for (int i = 0; i < piece.getSize(); i++) {
                 this.board[piece.getY() + i][piece.getX()] = false;
@@ -315,6 +323,9 @@ public class Board {
     }
 
     public Piece getPiece(char symbol) {
+        if (symbol == this.primaryPiece.getSymbol()) {
+            return this.primaryPiece;
+        }
         for (Piece piece : this.listOfPieces) {
             if (piece.getSymbol() == symbol) {
                 return piece;
@@ -341,6 +352,22 @@ public class Board {
                 charBoard[i][j] = '.';
             }
         }
+
+        // Board of Pieces
+        // Primary Piece
+        if (this.primaryPiece != null) {
+            if (this.primaryPiece.getOrientation() == Orientation.VERTICAL) {
+                for (int i = 0; i<this.primaryPiece.getSize(); i++) {
+                    charBoard[(this.primaryPiece.getY()+1) + i][(this.primaryPiece.getX()+1)] = this.primaryPiece.getSymbol();
+                }
+            }
+            else if (this.primaryPiece.getOrientation() == Orientation.HORIZONTAL) {
+                for (int i = 0; i<this.primaryPiece.getSize(); i++) {
+                    charBoard[(this.primaryPiece.getY()+1)][(this.primaryPiece.getX()+1) + i] = this.primaryPiece.getSymbol();
+                }
+            }
+        }
+        // Other Pieces
         for (Piece piece : this.listOfPieces) {
             if (piece.getOrientation() == Orientation.VERTICAL) {
                 for (int i = 0; i<piece.getSize(); i++) {

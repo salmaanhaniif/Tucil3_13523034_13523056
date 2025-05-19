@@ -123,6 +123,8 @@ public class IOHandler {
             debugPrint("x_exit: " + x_exit);
             debugPrint("y_exit: " + y_exit);
 
+            board.setExit(x_exit, y_exit);
+
             debugPrint(charBoard);
 
             int r = 0, c = 0;
