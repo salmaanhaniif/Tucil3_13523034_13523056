@@ -2,7 +2,10 @@
 <h1 align="center">Penyelesaian Puzzle Rush Hour Menggunakan Algoritma Pathfinding</h1>
 
 ![image](https://github.com/user-attachments/assets/ac2d911c-6245-4638-a1f1-dcab4a797caa)
+
+
 Puzzle game di atas memang relatif mudah untuk ukuran yang solveable bagi manusia seperti papan berukuran 6x6 dengan jumlah mobil 12. Tetapi bayangkan jika puzzle berukuran 100x100 dengan jumlah piece ribuan, apakah anda bisa menyelesaikannya? Tingkat kesulitan bertumbuh eksponensial terhadap ukuran dan jumlah hanya komputer yang dapat melakukan tugas repetitif untuk menyelesaikannya dengan memanfaatkan algoritma pathfinding dengan cepat.
+
 Program ini mengimplementasikan algoritma pathfinding seperti A*, Uniform Cost Search, dan Greedy Best First Search untuk menyelesaikan puzzle game rush hour. Instruksi penggunaan program dapat dilihat di bawah.
 
 ## Project Structure
