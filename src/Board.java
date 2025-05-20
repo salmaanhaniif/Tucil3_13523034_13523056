@@ -520,20 +520,20 @@ public class Board {
             x_Initial = movedPiece.getX();
             x_Final = movedPiece.getX();
             y_Initial = movedPiece.getY() - m.getDistance();
-            y_Final = movedPiece.getY()+ movedPiece.getSize();
+            y_Final = movedPiece.getY() + movedPiece.getSize() - 1;
         } else if (m.direction == Direction.UP) {
             x_Initial = movedPiece.getX();
             x_Final = movedPiece.getX();
-            y_Initial = movedPiece.getY() - m.getDistance() + 1;
-            y_Final = movedPiece.getY() + movedPiece.getSize();
+            y_Initial = movedPiece.getY();
+            y_Final = movedPiece.getY() + m.getDistance() + movedPiece.getSize() - 1;
         } else if (m.direction == Direction.LEFT) {
-            x_Initial = movedPiece.getX() - m.getDistance() + 1;
-            x_Final = movedPiece.getX() + movedPiece.getSize();
+            x_Initial = movedPiece.getX();
+            x_Final = movedPiece.getX() + m.getDistance() + movedPiece.getSize() - 1;
             y_Initial = movedPiece.getY();
             y_Final = movedPiece.getY();
         } else { // RIGHT
             x_Initial = movedPiece.getX() - m.getDistance();
-            x_Final = movedPiece.getX() + movedPiece.getSize();
+            x_Final = movedPiece.getX() + movedPiece.getSize() - 1;
             y_Initial = movedPiece.getY();
             y_Final = movedPiece.getY();
         }

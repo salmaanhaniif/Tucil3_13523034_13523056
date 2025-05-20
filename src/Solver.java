@@ -8,6 +8,8 @@ import java.util.Set;
 
 
 public class Solver {
+    private static int nodesExplored;
+    private static long timeExecution;
     // Algorithm;
     private static Algorithm algorithm;
     private static int n_algo;
@@ -36,6 +38,8 @@ public class Solver {
     }
 
     public void explore(State state) {
+        nodesExplored++;
+
         List<State.Movement> allMoves = state.getAllPossibleMoves();
         List<State> allStates = new ArrayList<>();
         
@@ -74,11 +78,15 @@ public class Solver {
         // queue.add(initialState);
         visited.add(initialState.getBoard().hashCodeSigma());
         
+        nodesExplored = 0;
+        timeExecution = System.currentTimeMillis();
+
         while (!queue.isEmpty()) {
             State currentState = queue.poll();
             
             if (currentState.getBoard().isGoal()) {
                 System.out.println("Found a solution!");
+                timeExecution = System.currentTimeMillis() - timeExecution;
                 return printSolutionPath(currentState);
             }
             
@@ -92,8 +100,12 @@ public class Solver {
     }
 
     private String printSolutionPath(State state) {
-        List<State> path = new ArrayList<>();
         String output = "";
+        System.out.println("Nodes Explored: " + nodesExplored);
+        output += "Nodes Explored: " + nodesExplored + "\n";
+        System.out.println("Time Execution: " + (timeExecution) + " ms");
+        output += "Time Execution: " + (timeExecution) + " ms\n";
+        List<State> path = new ArrayList<>();
         while (state != null) {
             path.add(state);
             state = state.getParent();
