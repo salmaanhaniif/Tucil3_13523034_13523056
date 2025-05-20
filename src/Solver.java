@@ -10,6 +10,7 @@ import java.util.Set;
 public class Solver {
     // Algorithm;
     private static Algorithm algorithm;
+    private static int n_algo;
     private static Heuristic heuristic;
     Board board; // Inisial state
     // prioqueue
@@ -17,9 +18,10 @@ public class Solver {
     // visited state
     private final Set<String> visited;
 
-    public Solver(Board board, Algorithm algorithm, Heuristic heuristic) {
+    public Solver(Board board, Algorithm algorithm, int n_algo, Heuristic heuristic) {
         this.board = board;
         Solver.algorithm = algorithm;
+        Solver.n_algo = n_algo;
         Solver.heuristic = heuristic;
         queue = new PriorityQueue<>();
         visited = new HashSet<>();
@@ -34,8 +36,10 @@ public class Solver {
     }
 
     public void explore(State state) {
-        List<State.Move> allMoves = state.getAllPossibleMoves();
-        for (State.Move move : allMoves) {
+        List<State.Movement> allMoves = state.getAllPossibleMoves();
+        List<State> allStates = new ArrayList<>();
+        
+        for (State.Movement move : allMoves) {
             Board newBoard = state.getBoard().clone();
             newBoard.movePiece(move.symbol, move.direction, move.distance);
 
@@ -43,9 +47,20 @@ public class Solver {
             newState.setParent(state);
             newState.setMovement(new State.Movement(move.symbol, move.direction, move.distance));
 
+            allStates.add(newState);
+        }
+
+        if (algorithm == Algorithm.GBFS || algorithm == Algorithm.BEAM) {
+            allStates = allStates.stream()
+                .sorted()
+                .limit(Solver.n_algo)
+                .toList();
+        }
+
+        for (State newState : allStates) {
             if (!visited.contains(newState.getBoard().hashCodeSigma())) {
                 queue.add(newState);
-            }
+            }  
         }
     }
 

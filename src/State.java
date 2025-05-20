@@ -131,22 +131,26 @@ public class State implements Comparable<State> {
         List<Movement> result = new ArrayList<>();
 
         if (board.getPrimaryPiece().getOrientation() == Orientation.VERTICAL) {
-            for (int i = 1; i <= board.getHeight() - board.getPrimaryPiece().getSize(); i++) {
-                if (board.isMovePossible(board.getPrimaryPiece().getSymbol(), Direction.UP, i)) {
-                    result.add(new Movement(board.getPrimaryPiece().getSymbol(), Direction.UP, i));
-                }
-                if (board.isMovePossible(board.getPrimaryPiece().getSymbol(), Direction.DOWN, i)) {
-                    result.add(new Movement(board.getPrimaryPiece().getSymbol(), Direction.DOWN, i));
-                }
+            int i = 1;
+            while (board.isMovePossible(board.getPrimaryPiece().getSymbol(), Direction.UP, i)) {
+                result.add(new Movement(board.getPrimaryPiece().getSymbol(), Direction.UP, i));
+                i++;
+            }
+            i = 1;
+            while (board.isMovePossible(board.getPrimaryPiece().getSymbol(), Direction.DOWN, i)) {
+                result.add(new Movement(board.getPrimaryPiece().getSymbol(), Direction.DOWN, i));
+                i++;
             }
         } else if (board.getPrimaryPiece().getOrientation() == Orientation.HORIZONTAL) {
-            for (int i = 1; i <= board.getWidth() - board.getPrimaryPiece().getSize(); i++) {
-                if (board.isMovePossible(board.getPrimaryPiece().getSymbol(), Direction.LEFT, i)) {
-                    result.add(new Movement(board.getPrimaryPiece().getSymbol(), Direction.LEFT, i));
-                }
-                if (board.isMovePossible(board.getPrimaryPiece().getSymbol(), Direction.RIGHT, i)) {
-                    result.add(new Movement(board.getPrimaryPiece().getSymbol(), Direction.RIGHT, i));
-                }
+            int i = 1;
+            while (board.isMovePossible(board.getPrimaryPiece().getSymbol(), Direction.LEFT, i)) {
+                result.add(new Movement(board.getPrimaryPiece().getSymbol(), Direction.LEFT, i));
+                i++;
+            }
+            i = 1;
+            while (board.isMovePossible(board.getPrimaryPiece().getSymbol(), Direction.RIGHT, i)) {
+                result.add(new Movement(board.getPrimaryPiece().getSymbol(), Direction.RIGHT, i));
+                i++;
             }
         }
 
@@ -188,6 +192,7 @@ public class State implements Comparable<State> {
                 otherCost = other.costSoFar;
                 break;
             case GBFS:
+            case BEAM:
                 thisCost = this.estimatedCostToGoal;
                 otherCost = other.estimatedCostToGoal;
                 break;

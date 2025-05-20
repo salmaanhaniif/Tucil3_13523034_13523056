@@ -1,5 +1,6 @@
 public enum Algorithm {
     UCS, 
     GBFS, 
-    ASTAR
+    ASTAR,
+    BEAM
 }

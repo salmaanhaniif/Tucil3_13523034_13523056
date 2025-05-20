@@ -4,6 +4,7 @@ public class Main {
     private static final boolean debug = true;
     static Board initBoard;
     static Algorithm algorithm;
+    static int n_algo = 0;
     static Heuristic heuristic;
 
     public static void configMenu(Scanner scanner) {
@@ -31,6 +32,7 @@ public class Main {
             System.out.println("1. UCS");
             System.out.println("2. GBFS");
             System.err.println("3. A*");
+            System.err.println("4. Beam Search");
             System.out.print("Enter algorithm number: ");
             String choiceString = scanner.nextLine();
             
@@ -53,15 +55,36 @@ public class Main {
                     break;
                 case 2:
                     algorithm = Algorithm.GBFS;
+                    n_algo = 1;
                     System.out.println("GBFS");
                     break;
                 case 3:
                     algorithm = Algorithm.ASTAR;
                     System.out.println("A*");
                     break;
+                case 4:
+                    algorithm = Algorithm.BEAM;
+                    n_algoMenu(scanner);
+                    System.out.println("Beam Search");
+                    break;
             }
-            if (choice == 1 || choice == 2 || choice == 3) break;
+            if (choice == 1 || choice == 2 || choice == 3 || choice == 4) break;
             else System.out.println("Invalid algorithm number.");
+        }
+    }
+
+    public static void n_algoMenu(Scanner scanner) {
+        while (true) { 
+            System.out.print("Enter n: ");
+            String n = scanner.nextLine();
+            try {
+                n_algo = Integer.parseInt(n);
+            } catch (Exception e) {
+                System.out.println("Invalid n.");
+                continue;
+            }
+            if (n_algo >= 0) break;
+            else System.out.println("Invalid n. N must be >= 0.");
         }
     }
 
@@ -112,7 +135,7 @@ public class Main {
                 heuristic = Heuristic.NONE;
             }
             
-            Solver solver = new Solver(initBoard, algorithm, heuristic);
+            Solver solver = new Solver(initBoard, algorithm, n_algo, heuristic);
             solver.solve();
 
             if (scanner.nextLine().trim().equals("exit")) break;

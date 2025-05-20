@@ -1,8 +1,8 @@
-6 6     
-3
-....BB
-.....C
-PP...CK
-.....C
-..AAAA
-......
+6 6
+12
+ABB.C.
+ADE.CF
+ADEPPFK
+GGGH.F
+..IHJJ
+LLIMM.
