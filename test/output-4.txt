@@ -1,0 +1,932 @@
+Nodes Explored: 479
+Time Execution: 27 ms
+Solution path (total moves: 92):
+Initial State
+╔═════════════╗
+║ B . A A . . ║
+║ B C C . . . ║
+< B . . P P . ║
+║ F F E D I I ║
+║ . . E D G . ║
+║ H H . D G . ║
+╚═════════════╝
+Step 1:
+P - LEFT - 2
+╔═════════════╗
+║ B . A A . . ║
+║ B C C . . . ║
+< B P P . . . ║
+║ F F E D I I ║
+║ . . E D G . ║
+║ H H . D G . ║
+╚═════════════╝
+Step 2:
+H - RIGHT - 1
+╔═════════════╗
+║ B . A A . . ║
+║ B C C . . . ║
+< B P P . . . ║
+║ F F E D I I ║
+║ . . E D G . ║
+║ . H H D G . ║
+╚═════════════╝
+Step 3:
+D - UP - 2
+╔═════════════╗
+║ B . A A . . ║
+║ B C C D . . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E . G . ║
+║ . H H . G . ║
+╚═════════════╝
+Step 4:
+H - RIGHT - 1
+╔═════════════╗
+║ B . A A . . ║
+║ B C C D . . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E . G . ║
+║ . . H H G . ║
+╚═════════════╝
+Step 5:
+H - LEFT - 2
+╔═════════════╗
+║ B . A A . . ║
+║ B C C D . . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E . G . ║
+║ H H . . G . ║
+╚═════════════╝
+Step 6:
+D - DOWN - 1
+╔═════════════╗
+║ B . A A . . ║
+║ B C C . . . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E D G . ║
+║ H H . . G . ║
+╚═════════════╝
+Step 7:
+H - RIGHT - 2
+╔═════════════╗
+║ B . A A . . ║
+║ B C C . . . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E D G . ║
+║ . . H H G . ║
+╚═════════════╝
+Step 8:
+H - LEFT - 1
+╔═════════════╗
+║ B . A A . . ║
+║ B C C . . . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E D G . ║
+║ . H H . G . ║
+╚═════════════╝
+Step 9:
+A - RIGHT - 1
+╔═════════════╗
+║ B . . A A . ║
+║ B C C . . . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E D G . ║
+║ . H H . G . ║
+╚═════════════╝
+Step 10:
+H - RIGHT - 1
+╔═════════════╗
+║ B . . A A . ║
+║ B C C . . . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E D G . ║
+║ . . H H G . ║
+╚═════════════╝
+Step 11:
+H - LEFT - 2
+╔═════════════╗
+║ B . . A A . ║
+║ B C C . . . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E D G . ║
+║ H H . . G . ║
+╚═════════════╝
+Step 12:
+D - DOWN - 1
+╔═════════════╗
+║ B . . A A . ║
+║ B C C . . . ║
+< B P P . . . ║
+║ F F E D I I ║
+║ . . E D G . ║
+║ H H . D G . ║
+╚═════════════╝
+Step 13:
+H - RIGHT - 1
+╔═════════════╗
+║ B . . A A . ║
+║ B C C . . . ║
+< B P P . . . ║
+║ F F E D I I ║
+║ . . E D G . ║
+║ . H H D G . ║
+╚═════════════╝
+Step 14:
+D - UP - 2
+╔═════════════╗
+║ B . . A A . ║
+║ B C C D . . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E . G . ║
+║ . H H . G . ║
+╚═════════════╝
+Step 15:
+H - RIGHT - 1
+╔═════════════╗
+║ B . . A A . ║
+║ B C C D . . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E . G . ║
+║ . . H H G . ║
+╚═════════════╝
+Step 16:
+H - LEFT - 2
+╔═════════════╗
+║ B . . A A . ║
+║ B C C D . . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E . G . ║
+║ H H . . G . ║
+╚═════════════╝
+Step 17:
+E - DOWN - 1
+╔═════════════╗
+║ B . . A A . ║
+║ B C C D . . ║
+< B P P D . . ║
+║ F F . D I I ║
+║ . . E . G . ║
+║ H H E . G . ║
+╚═════════════╝
+Step 18:
+D - DOWN - 2
+╔═════════════╗
+║ B . . A A . ║
+║ B C C . . . ║
+< B P P . . . ║
+║ F F . D I I ║
+║ . . E D G . ║
+║ H H E D G . ║
+╚═════════════╝
+Step 19:
+D - UP - 1
+╔═════════════╗
+║ B . . A A . ║
+║ B C C . . . ║
+< B P P D . . ║
+║ F F . D I I ║
+║ . . E D G . ║
+║ H H E . G . ║
+╚═════════════╝
+Step 20:
+F - RIGHT - 1
+╔═════════════╗
+║ B . . A A . ║
+║ B C C . . . ║
+< B P P D . . ║
+║ . F F D I I ║
+║ . . E D G . ║
+║ H H E . G . ║
+╚═════════════╝
+Step 21:
+D - DOWN - 1
+╔═════════════╗
+║ B . . A A . ║
+║ B C C . . . ║
+< B P P . . . ║
+║ . F F D I I ║
+║ . . E D G . ║
+║ H H E D G . ║
+╚═════════════╝
+Step 22:
+D - UP - 2
+╔═════════════╗
+║ B . . A A . ║
+║ B C C D . . ║
+< B P P D . . ║
+║ . F F D I I ║
+║ . . E . G . ║
+║ H H E . G . ║
+╚═════════════╝
+Step 23:
+A - LEFT - 2
+╔═════════════╗
+║ B A A . . . ║
+║ B C C D . . ║
+< B P P D . . ║
+║ . F F D I I ║
+║ . . E . G . ║
+║ H H E . G . ║
+╚═════════════╝
+Step 24:
+D - DOWN - 2
+╔═════════════╗
+║ B A A . . . ║
+║ B C C . . . ║
+< B P P . . . ║
+║ . F F D I I ║
+║ . . E D G . ║
+║ H H E D G . ║
+╚═════════════╝
+Step 25:
+D - UP - 3
+╔═════════════╗
+║ B A A D . . ║
+║ B C C D . . ║
+< B P P D . . ║
+║ . F F . I I ║
+║ . . E . G . ║
+║ H H E . G . ║
+╚═════════════╝
+Step 26:
+I - LEFT - 1
+╔═════════════╗
+║ B A A D . . ║
+║ B C C D . . ║
+< B P P D . . ║
+║ . F F I I . ║
+║ . . E . G . ║
+║ H H E . G . ║
+╚═════════════╝
+Step 27:
+F - LEFT - 1
+╔═════════════╗
+║ B A A D . . ║
+║ B C C D . . ║
+< B P P D . . ║
+║ F F . I I . ║
+║ . . E . G . ║
+║ H H E . G . ║
+╚═════════════╝
+Step 28:
+I - RIGHT - 1
+╔═════════════╗
+║ B A A D . . ║
+║ B C C D . . ║
+< B P P D . . ║
+║ F F . . I I ║
+║ . . E . G . ║
+║ H H E . G . ║
+╚═════════════╝
+Step 29:
+I - LEFT - 2
+╔═════════════╗
+║ B A A D . . ║
+║ B C C D . . ║
+< B P P D . . ║
+║ F F I I . . ║
+║ . . E . G . ║
+║ H H E . G . ║
+╚═════════════╝
+Step 30:
+G - UP - 4
+╔═════════════╗
+║ B A A D G . ║
+║ B C C D G . ║
+< B P P D . . ║
+║ F F I I . . ║
+║ . . E . . . ║
+║ H H E . . . ║
+╚═════════════╝
+Step 31:
+G - DOWN - 3
+╔═════════════╗
+║ B A A D . . ║
+║ B C C D . . ║
+< B P P D . . ║
+║ F F I I G . ║
+║ . . E . G . ║
+║ H H E . . . ║
+╚═════════════╝
+Step 32:
+G - UP - 2
+╔═════════════╗
+║ B A A D . . ║
+║ B C C D G . ║
+< B P P D G . ║
+║ F F I I . . ║
+║ . . E . . . ║
+║ H H E . . . ║
+╚═════════════╝
+Step 33:
+I - RIGHT - 2
+╔═════════════╗
+║ B A A D . . ║
+║ B C C D G . ║
+< B P P D G . ║
+║ F F . . I I ║
+║ . . E . . . ║
+║ H H E . . . ║
+╚═════════════╝
+Step 34:
+G - UP - 1
+╔═════════════╗
+║ B A A D G . ║
+║ B C C D G . ║
+< B P P D . . ║
+║ F F . . I I ║
+║ . . E . . . ║
+║ H H E . . . ║
+╚═════════════╝
+Step 35:
+I - LEFT - 1
+╔═════════════╗
+║ B A A D G . ║
+║ B C C D G . ║
+< B P P D . . ║
+║ F F . I I . ║
+║ . . E . . . ║
+║ H H E . . . ║
+╚═════════════╝
+Step 36:
+E - UP - 1
+╔═════════════╗
+║ B A A D G . ║
+║ B C C D G . ║
+< B P P D . . ║
+║ F F E I I . ║
+║ . . E . . . ║
+║ H H . . . . ║
+╚═════════════╝
+Step 37:
+H - RIGHT - 4
+╔═════════════╗
+║ B A A D G . ║
+║ B C C D G . ║
+< B P P D . . ║
+║ F F E I I . ║
+║ . . E . . . ║
+║ . . . . H H ║
+╚═════════════╝
+Step 38:
+H - LEFT - 3
+╔═════════════╗
+║ B A A D G . ║
+║ B C C D G . ║
+< B P P D . . ║
+║ F F E I I . ║
+║ . . E . . . ║
+║ . H H . . . ║
+╚═════════════╝
+Step 39:
+H - RIGHT - 2
+╔═════════════╗
+║ B A A D G . ║
+║ B C C D G . ║
+< B P P D . . ║
+║ F F E I I . ║
+║ . . E . . . ║
+║ . . . H H . ║
+╚═════════════╝
+Step 40:
+H - LEFT - 1
+╔═════════════╗
+║ B A A D G . ║
+║ B C C D G . ║
+< B P P D . . ║
+║ F F E I I . ║
+║ . . E . . . ║
+║ . . H H . . ║
+╚═════════════╝
+Step 41:
+G - DOWN - 1
+╔═════════════╗
+║ B A A D . . ║
+║ B C C D G . ║
+< B P P D G . ║
+║ F F E I I . ║
+║ . . E . . . ║
+║ . . H H . . ║
+╚═════════════╝
+Step 42:
+H - RIGHT - 2
+╔═════════════╗
+║ B A A D . . ║
+║ B C C D G . ║
+< B P P D G . ║
+║ F F E I I . ║
+║ . . E . . . ║
+║ . . . . H H ║
+╚═════════════╝
+Step 43:
+H - LEFT - 4
+╔═════════════╗
+║ B A A D . . ║
+║ B C C D G . ║
+< B P P D G . ║
+║ F F E I I . ║
+║ . . E . . . ║
+║ H H . . . . ║
+╚═════════════╝
+Step 44:
+H - RIGHT - 3
+╔═════════════╗
+║ B A A D . . ║
+║ B C C D G . ║
+< B P P D G . ║
+║ F F E I I . ║
+║ . . E . . . ║
+║ . . . H H . ║
+╚═════════════╝
+Step 45:
+H - LEFT - 2
+╔═════════════╗
+║ B A A D . . ║
+║ B C C D G . ║
+< B P P D G . ║
+║ F F E I I . ║
+║ . . E . . . ║
+║ . H H . . . ║
+╚═════════════╝
+Step 46:
+I - RIGHT - 1
+╔═════════════╗
+║ B A A D . . ║
+║ B C C D G . ║
+< B P P D G . ║
+║ F F E . I I ║
+║ . . E . . . ║
+║ . H H . . . ║
+╚═════════════╝
+Step 47:
+D - DOWN - 2
+╔═════════════╗
+║ B A A . . . ║
+║ B C C . G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ . H H . . . ║
+╚═════════════╝
+Step 48:
+A - RIGHT - 2
+╔═════════════╗
+║ B . . A A . ║
+║ B C C . G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ . H H . . . ║
+╚═════════════╝
+Step 49:
+H - RIGHT - 3
+╔═════════════╗
+║ B . . A A . ║
+║ B C C . G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ . . . . H H ║
+╚═════════════╝
+Step 50:
+H - LEFT - 2
+╔═════════════╗
+║ B . . A A . ║
+║ B C C . G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ . . H H . . ║
+╚═════════════╝
+Step 51:
+H - RIGHT - 1
+╔═════════════╗
+║ B . . A A . ║
+║ B C C . G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ . . . H H . ║
+╚═════════════╝
+Step 52:
+D - UP - 1
+╔═════════════╗
+║ B . . A A . ║
+║ B C C D G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E . . . ║
+║ . . . H H . ║
+╚═════════════╝
+Step 53:
+H - LEFT - 3
+╔═════════════╗
+║ B . . A A . ║
+║ B C C D G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E . . . ║
+║ H H . . . . ║
+╚═════════════╝
+Step 54:
+H - RIGHT - 4
+╔═════════════╗
+║ B . . A A . ║
+║ B C C D G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E . . . ║
+║ . . . . H H ║
+╚═════════════╝
+Step 55:
+H - LEFT - 3
+╔═════════════╗
+║ B . . A A . ║
+║ B C C D G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E . . . ║
+║ . H H . . . ║
+╚═════════════╝
+Step 56:
+H - RIGHT - 1
+╔═════════════╗
+║ B . . A A . ║
+║ B C C D G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E . . . ║
+║ . . H H . . ║
+╚═════════════╝
+Step 57:
+A - LEFT - 1
+╔═════════════╗
+║ B . A A . . ║
+║ B C C D G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E . . . ║
+║ . . H H . . ║
+╚═════════════╝
+Step 58:
+H - RIGHT - 2
+╔═════════════╗
+║ B . A A . . ║
+║ B C C D G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E . . . ║
+║ . . . . H H ║
+╚═════════════╝
+Step 59:
+H - LEFT - 4
+╔═════════════╗
+║ B . A A . . ║
+║ B C C D G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E . . . ║
+║ H H . . . . ║
+╚═════════════╝
+Step 60:
+H - RIGHT - 3
+╔═════════════╗
+║ B . A A . . ║
+║ B C C D G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E . . . ║
+║ . . . H H . ║
+╚═════════════╝
+Step 61:
+H - LEFT - 2
+╔═════════════╗
+║ B . A A . . ║
+║ B C C D G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E . . . ║
+║ . H H . . . ║
+╚═════════════╝
+Step 62:
+G - UP - 1
+╔═════════════╗
+║ B . A A G . ║
+║ B C C D G . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E . . . ║
+║ . H H . . . ║
+╚═════════════╝
+Step 63:
+H - RIGHT - 3
+╔═════════════╗
+║ B . A A G . ║
+║ B C C D G . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E . . . ║
+║ . . . . H H ║
+╚═════════════╝
+Step 64:
+H - LEFT - 4
+╔═════════════╗
+║ B . A A G . ║
+║ B C C D G . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E . . . ║
+║ H H . . . . ║
+╚═════════════╝
+Step 65:
+H - RIGHT - 3
+╔═════════════╗
+║ B . A A G . ║
+║ B C C D G . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E . . . ║
+║ . . . H H . ║
+╚═════════════╝
+Step 66:
+H - LEFT - 1
+╔═════════════╗
+║ B . A A G . ║
+║ B C C D G . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E . . . ║
+║ . . H H . . ║
+╚═════════════╝
+Step 67:
+D - DOWN - 1
+╔═════════════╗
+║ B . A A G . ║
+║ B C C . G . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ . . H H . . ║
+╚═════════════╝
+Step 68:
+H - RIGHT - 2
+╔═════════════╗
+║ B . A A G . ║
+║ B C C . G . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ . . . . H H ║
+╚═════════════╝
+Step 69:
+H - LEFT - 4
+╔═════════════╗
+║ B . A A G . ║
+║ B C C . G . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ H H . . . . ║
+╚═════════════╝
+Step 70:
+H - RIGHT - 3
+╔═════════════╗
+║ B . A A G . ║
+║ B C C . G . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ . . . H H . ║
+╚═════════════╝
+Step 71:
+H - LEFT - 2
+╔═════════════╗
+║ B . A A G . ║
+║ B C C . G . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ . H H . . . ║
+╚═════════════╝
+Step 72:
+G - DOWN - 1
+╔═════════════╗
+║ B . A A . . ║
+║ B C C . G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ . H H . . . ║
+╚═════════════╝
+Step 73:
+H - RIGHT - 3
+╔═════════════╗
+║ B . A A . . ║
+║ B C C . G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ . . . . H H ║
+╚═════════════╝
+Step 74:
+H - LEFT - 4
+╔═════════════╗
+║ B . A A . . ║
+║ B C C . G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ H H . . . . ║
+╚═════════════╝
+Step 75:
+H - RIGHT - 3
+╔═════════════╗
+║ B . A A . . ║
+║ B C C . G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ . . . H H . ║
+╚═════════════╝
+Step 76:
+H - LEFT - 1
+╔═════════════╗
+║ B . A A . . ║
+║ B C C . G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ . . H H . . ║
+╚═════════════╝
+Step 77:
+C - RIGHT - 1
+╔═════════════╗
+║ B . A A . . ║
+║ B . C C G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ . . H H . . ║
+╚═════════════╝
+Step 78:
+H - RIGHT - 2
+╔═════════════╗
+║ B . A A . . ║
+║ B . C C G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ . . . . H H ║
+╚═════════════╝
+Step 79:
+H - LEFT - 4
+╔═════════════╗
+║ B . A A . . ║
+║ B . C C G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ H H . . . . ║
+╚═════════════╝
+Step 80:
+H - RIGHT - 3
+╔═════════════╗
+║ B . A A . . ║
+║ B . C C G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ . . . H H . ║
+╚═════════════╝
+Step 81:
+H - LEFT - 2
+╔═════════════╗
+║ B . A A . . ║
+║ B . C C G . ║
+< B P P D G . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ . H H . . . ║
+╚═════════════╝
+Step 82:
+G - UP - 1
+╔═════════════╗
+║ B . A A G . ║
+║ B . C C G . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ . H H . . . ║
+╚═════════════╝
+Step 83:
+H - RIGHT - 3
+╔═════════════╗
+║ B . A A G . ║
+║ B . C C G . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ . . . . H H ║
+╚═════════════╝
+Step 84:
+H - LEFT - 4
+╔═════════════╗
+║ B . A A G . ║
+║ B . C C G . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ H H . . . . ║
+╚═════════════╝
+Step 85:
+H - RIGHT - 3
+╔═════════════╗
+║ B . A A G . ║
+║ B . C C G . ║
+< B P P D . . ║
+║ F F E D I I ║
+║ . . E D . . ║
+║ . . . H H . ║
+╚═════════════╝
+Step 86:
+E - DOWN - 1
+╔═════════════╗
+║ B . A A G . ║
+║ B . C C G . ║
+< B P P D . . ║
+║ F F . D I I ║
+║ . . E D . . ║
+║ . . E H H . ║
+╚═════════════╝
+Step 87:
+H - RIGHT - 1
+╔═════════════╗
+║ B . A A G . ║
+║ B . C C G . ║
+< B P P D . . ║
+║ F F . D I I ║
+║ . . E D . . ║
+║ . . E . H H ║
+╚═════════════╝
+Step 88:
+G - DOWN - 1
+╔═════════════╗
+║ B . A A . . ║
+║ B . C C G . ║
+< B P P D G . ║
+║ F F . D I I ║
+║ . . E D . . ║
+║ . . E . H H ║
+╚═════════════╝
+Step 89:
+H - LEFT - 1
+╔═════════════╗
+║ B . A A . . ║
+║ B . C C G . ║
+< B P P D G . ║
+║ F F . D I I ║
+║ . . E D . . ║
+║ . . E H H . ║
+╚═════════════╝
+Step 90:
+F - RIGHT - 1
+╔═════════════╗
+║ B . A A . . ║
+║ B . C C G . ║
+< B P P D G . ║
+║ . F F D I I ║
+║ . . E D . . ║
+║ . . E H H . ║
+╚═════════════╝
+Step 91:
+B - DOWN - 3
+╔═════════════╗
+║ . . A A . . ║
+║ . . C C G . ║
+< . P P D G . ║
+║ B F F D I I ║
+║ B . E D . . ║
+║ B . E H H . ║
+╚═════════════╝
+Step 92:
+P - LEFT - 1
+╔═════════════╗
+║ . . A A . . ║
+║ . . C C G . ║
+< P P . D G . ║
+║ B F F D I I ║
+║ B . E D . . ║
+║ B . E H H . ║
+╚═════════════╝

@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Board {
-    private final boolean debug = true;
+    private final boolean debug = false;
     private final int width;
     private final int height;
     private boolean[][] board;
@@ -66,7 +66,7 @@ public class Board {
             Direction dir;
             // Jika di kiri akan bernilai negatif, jika di kanan akan bernilai positif
             if (x_DistanceToExit < 0) {
-                x_DistanceToExit = -x_DistanceToExit;
+                x_DistanceToExit = -x_DistanceToExit - 1;
                 dir = Direction.LEFT;
             } else {
                 x_DistanceToExit = x_DistanceToExit - this.primaryPiece.getSize();
@@ -80,7 +80,7 @@ public class Board {
             int y_DistanceToExit = this.y_Exit - this.primaryPiece.getY();
             Direction dir;
             if (y_DistanceToExit < 0) {
-                y_DistanceToExit = -y_DistanceToExit;
+                y_DistanceToExit = -y_DistanceToExit - 1;
                 dir = Direction.UP;
             } else {
                 y_DistanceToExit = y_DistanceToExit - this.primaryPiece.getSize();
@@ -91,6 +91,33 @@ public class Board {
             }
         }
         return false;
+    }
+
+    public Piece getPieceAt(int y, int x) {
+        Piece primary = getPrimaryPiece();
+        if (occupiesCell(primary, y, x)) {
+            return primary;
+        }
+
+        for (Piece piece : listOfPieces) {
+            if (occupiesCell(piece, y, x)) {
+                return piece;
+            }
+        }
+
+        return null;
+    }
+
+    private boolean occupiesCell(Piece piece, int y, int x) {
+        int px = piece.getX();
+        int py = piece.getY();
+        int size = piece.getSize();
+
+        if (piece.getOrientation() == Orientation.HORIZONTAL) {
+            return py == y && x >= px && x < px + size;
+        } else {
+            return px == x && y >= py && y < py + size;
+        }
     }
 
     public int getWidth() {
@@ -395,8 +422,8 @@ public class Board {
             for (int j = 0; j < this.width+2; j++) {
                 if (i==0) {
                     if (i==y_Exit + 1 && j==x_Exit + 1) {
-                        System.out.print("^^");
-                        boardString += "^^";
+                        System.out.print("^═");
+                        boardString += "^═";
                     } else if (j==0) {
                         System.out.print("╔═");
                         boardString += "╔═";
@@ -409,8 +436,8 @@ public class Board {
                     }
                 } else if (i==this.height+1) {
                     if (i==y_Exit + 1 && j==x_Exit + 1) {
-                        System.out.print("vv");
-                        boardString += "vv";
+                        System.out.print("v═");
+                        boardString += "v═";
                     }
                     else if (j==0) {
                         System.out.print("╚═");
@@ -424,8 +451,8 @@ public class Board {
                     }
                 } else if (j == 0) {
                     if (i == y_Exit + 1 && j == x_Exit + 1) {
-                        System.out.print("<"); // Kosongkan kiri
-                        boardString += "<";
+                        System.out.print("< "); // Kosongkan kiri
+                        boardString += "< ";
                     } else {
                         System.out.print("║ ");
                         boardString += "║ ";
@@ -544,8 +571,8 @@ public class Board {
             for (int j = 0; j < this.width+2; j++) {
                 if (i==0) {
                     if (i==y_Exit + 1 && j==x_Exit + 1) {
-                        System.out.print("\u001B[32m^^\u001B[0m");
-                        boardString += "^^";
+                        System.out.print("\u001B[32m^\u001B[0m═");
+                        boardString += "^═";
                     } else if (j==0) {
                         System.out.print("╔═");
                         boardString += "╔═";
@@ -558,8 +585,8 @@ public class Board {
                     }
                 } else if (i==this.height+1) {
                     if (i==y_Exit + 1 && j==x_Exit + 1) {
-                        System.out.print("\u001B[32mvv\u001B[0m");
-                        boardString += "vv";
+                        System.out.print("\u001B[32mv\u001B[0m═");
+                        boardString += "v═";
                     }
                     else if (j==0) {
                         System.out.print("╚═");
@@ -573,8 +600,8 @@ public class Board {
                     }
                 } else if (j == 0) {
                     if (i == y_Exit + 1 && j == x_Exit + 1) {
-                        System.out.print("\u001B[32m<\u001B[0m"); // Kosongkan kiri
-                        boardString += "<";
+                        System.out.print("\u001B[32m<\u001B[0m "); // Kosongkan kiri
+                        boardString += "< ";
                     } else {
                         System.out.print("║ ");
                         boardString += "║ ";

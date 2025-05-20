@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-    private static final boolean debug = true;
+    private static final boolean debug = false;
     static String filePath;
     static Board initBoard;
     static Algorithm algorithm;
@@ -56,7 +56,7 @@ public class Main {
                     break;
                 case 2:
                     algorithm = Algorithm.GBFS;
-                    n_algo = 1;
+                    n_algo = 99999;
                     System.out.println("GBFS");
                     break;
                 case 3:
@@ -94,6 +94,7 @@ public class Main {
             System.out.println("Heuristics");
             System.out.println("1. Distance to Exit");
             System.out.println("2. Blocker Count");
+            System.out.println("3. Blocker Chaining");
             System.out.print("Enter heuristic number: ");
             String algorithm = scanner.nextLine();
             
@@ -112,14 +113,18 @@ public class Main {
             switch (choice) {
                 case 1:
                     heuristic = Heuristic.MANHATTAN;
-                    System.out.println("Manhattan");
+                    System.out.println("Heuristic picked : Distance to Exit");
                     break;
                 case 2:
                     heuristic = Heuristic.BLOCKER;
-                    System.out.println("Blocker Count");
+                    System.out.println("Heuristic picked : Blocker Count");
+                    break;
+                case 3:
+                    heuristic = Heuristic.BLOCKERCHAIN;
+                    System.out.println("Heuristic picked : Blocker Chaining");
                     break;
             }
-            if (choice == 1 || choice == 2) break;
+            if (choice == 1 || choice == 2 || choice == 3) break;
             else System.out.println("Invalid heuristic number.");
         }
     }
@@ -130,7 +135,7 @@ public class Main {
             Board board;
             configMenu(scanner);
             algorithmMenu(scanner);
-            if (algorithm == Algorithm.ASTAR || algorithm == Algorithm.GBFS) {
+            if (algorithm == Algorithm.ASTAR || algorithm == Algorithm.GBFS || algorithm == Algorithm.BEAM) {
                 heuristicMenu(scanner);
             } else {
                 heuristic = Heuristic.NONE;

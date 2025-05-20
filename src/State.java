@@ -51,6 +51,10 @@ public class State implements Comparable<State> {
                 this.estimatedCostToGoal = calculateBlocker();
                 IOHandler.debugPrint("BLOCKER: " + this.estimatedCostToGoal);
                 break;
+            case BLOCKERCHAIN:
+                this.estimatedCostToGoal = calculateBlockerChain();
+                IOHandler.debugPrint("BLOCKER_CHAIN: " + this.estimatedCostToGoal);
+                break;
         }
     }
 
@@ -125,6 +129,76 @@ public class State implements Comparable<State> {
             }
         }
         return blocker;
+    }
+
+    public final int calculateBlockerChain() {
+        Piece p = board.getPrimaryPiece();
+        int depth = 0;
+
+        if (p.getOrientation() == Orientation.HORIZONTAL) {
+            int start = p.getX() + p.getSize();
+            for (int x = start; x < board.getWidth(); x++) {
+                Piece blocker = board.getPieceAt(p.getY(), x);
+                if (blocker != null && blocker != p) {
+                    depth = Math.max(depth, 1 + getBlockerDepth(blocker));
+                }
+            }
+        } else {
+            int start = p.getY() + p.getSize();
+            for (int y = start; y < board.getHeight(); y++) {
+                Piece blocker = board.getPieceAt(y, p.getX());
+                if (blocker != null && blocker != p) {
+                    depth = Math.max(depth, 1 + getBlockerDepth(blocker));
+                }
+            }
+        }
+
+        return depth;
+    }
+
+    private int getBlockerDepth(Piece piece) {
+        int depth = 0;
+
+        Direction[] dirs = (piece.getOrientation() == Orientation.HORIZONTAL)
+                ? new Direction[]{Direction.LEFT, Direction.RIGHT}
+                : new Direction[]{Direction.UP, Direction.DOWN};
+
+        boolean canMove = false;
+        for (Direction dir : dirs) {
+            for (int i = 1; i <= board.getWidth(); i++) {
+                if (board.isMovePossible(piece.getSymbol(), dir, i)) {
+                    canMove = true;
+                    break;
+                }
+            }
+            if (canMove) break;
+        }
+
+        if (canMove) return 1;
+
+        // Try to find what is blocking this piece
+        int px = piece.getX(), py = piece.getY();
+        int depthFound = 0;
+
+        if (piece.getOrientation() == Orientation.HORIZONTAL) {
+            int start = px + piece.getSize();
+            for (int x = start; x < board.getWidth(); x++) {
+                Piece b = board.getPieceAt(py, x);
+                if (b != null && b != piece) {
+                    depthFound = Math.max(depthFound, getBlockerDepth(b));
+                }
+            }
+        } else {
+            int start = py + piece.getSize();
+            for (int y = start; y < board.getHeight(); y++) {
+                Piece b = board.getPieceAt(y, px);
+                if (b != null && b != piece) {
+                    depthFound = Math.max(depthFound, getBlockerDepth(b));
+                }
+            }
+        }
+
+        return 1 + depthFound;
     }
 
     public List<Movement> getAllPossibleMoves() {

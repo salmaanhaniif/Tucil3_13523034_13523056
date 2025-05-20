@@ -143,7 +143,7 @@ public class Solver {
                 lastDist = newBoard.getYExit() - newBoard.getPrimaryPiece().getY() - newBoard.getPrimaryPiece().getSize();
             } else {
                 lastDir = Direction.UP;
-                lastDist = newBoard.getPrimaryPiece().getY() - newBoard.getYExit() + 1;
+                lastDist = newBoard.getPrimaryPiece().getY();
             }
         } else {
             if (newBoard.getXExit() > newBoard.getPrimaryPiece().getX()) {
@@ -151,7 +151,7 @@ public class Solver {
                 lastDist = newBoard.getXExit() - newBoard.getPrimaryPiece().getX() - newBoard.getPrimaryPiece().getSize();
             } else {
                 lastDir = Direction.LEFT;
-                lastDist = newBoard.getPrimaryPiece().getX() - newBoard.getXExit() + 1;
+                lastDist = newBoard.getPrimaryPiece().getX();
             }
         }
         newBoard.movePiece('P', lastDir, lastDist);

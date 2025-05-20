@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class IOHandler {
-    static boolean debug = true;
+    static boolean debug = false;
 
     public static void debugPrint(String message) {
         if (debug) {

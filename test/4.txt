@@ -1,8 +1,8 @@
 6 6
 9
-..AA.B
-...CCB
-.PP..BK
-IIDEFF
-.GDE..
-.GD.HH
+ B.AA..
+ BCC...
+KB..PP.
+ FFEDII
+ ..EDG.
+ HH.DG.

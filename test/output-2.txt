@@ -1,0 +1,82 @@
+Nodes Explored: 1154
+Time Execution: 40 ms
+Solution path (total moves: 7):
+Initial State
+╔═════^═══════╗
+║ J . . . . . ║
+║ J I I . D . ║
+║ H H H . D E ║
+║ . B C C . E ║
+║ A B P . F F ║
+║ A . P . G G ║
+╚═════════════╝
+Step 1:
+C - RIGHT - 1
+╔═════^═══════╗
+║ J . . . . . ║
+║ J I I . D . ║
+║ H H H . D E ║
+║ . B . C C E ║
+║ A B P . F F ║
+║ A . P . G G ║
+╚═════════════╝
+Step 2:
+E - UP - 2
+╔═════^═══════╗
+║ J . . . . E ║
+║ J I I . D E ║
+║ H H H . D . ║
+║ . B . C C . ║
+║ A B P . F F ║
+║ A . P . G G ║
+╚═════════════╝
+Step 3:
+D - UP - 1
+╔═════^═══════╗
+║ J . . . D E ║
+║ J I I . D E ║
+║ H H H . . . ║
+║ . B . C C . ║
+║ A B P . F F ║
+║ A . P . G G ║
+╚═════════════╝
+Step 4:
+H - RIGHT - 3
+╔═════^═══════╗
+║ J . . . D E ║
+║ J I I . D E ║
+║ . . . H H H ║
+║ . B . C C . ║
+║ A B P . F F ║
+║ A . P . G G ║
+╚═════════════╝
+Step 5:
+J - DOWN - 2
+╔═════^═══════╗
+║ . . . . D E ║
+║ . I I . D E ║
+║ J . . H H H ║
+║ J B . C C . ║
+║ A B P . F F ║
+║ A . P . G G ║
+╚═════════════╝
+Step 6:
+I - LEFT - 1
+╔═════^═══════╗
+║ . . . . D E ║
+║ I I . . D E ║
+║ J . . H H H ║
+║ J B . C C . ║
+║ A B P . F F ║
+║ A . P . G G ║
+╚═════════════╝
+Step 7:
+P - UP - 4
+╔═════^═══════╗
+║ . . P . D E ║
+║ I I P . D E ║
+║ J . . H H H ║
+║ J B . C C . ║
+║ A B . . F F ║
+║ A . . . G G ║
+╚═════════════╝
