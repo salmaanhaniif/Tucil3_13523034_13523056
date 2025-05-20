@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Main {
     private static final boolean debug = true;
+    static String filePath;
     static Board initBoard;
     static Algorithm algorithm;
     static int n_algo = 0;
@@ -10,7 +11,7 @@ public class Main {
     public static void configMenu(Scanner scanner) {
         while (true) { 
             System.out.print("Enter file path: ");
-            String filePath = scanner.nextLine();
+            filePath = scanner.nextLine();
 
             if (debug && filePath.equals("")) {
                 filePath = "test/input.txt";
@@ -136,7 +137,13 @@ public class Main {
             }
             
             Solver solver = new Solver(initBoard, algorithm, n_algo, heuristic);
-            solver.solve();
+            String solution = solver.solve();
+
+            try {
+                IOHandler.outputToFile(IOHandler.addOutputPrefix(filePath), solution);
+            } catch (Exception e) {
+                System.out.println("File Output Error: " + e.getMessage());
+            }
 
             if (scanner.nextLine().trim().equals("exit")) break;
         }

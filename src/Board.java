@@ -350,7 +350,7 @@ public class Board {
         this.listOfPieces = listOfPieces;
     }
 
-    public void printBoard() {
+    public String printBoard() {
         // Board of Characters
         char[][] charBoard = new char[this.height + 2][this.width + 2];
 
@@ -390,47 +390,64 @@ public class Board {
         }
 
         // Print the board
+        String boardString = "";
         for (int i = 0; i < this.height+2; i++) {
             for (int j = 0; j < this.width+2; j++) {
                 if (i==0) {
                     if (i==y_Exit + 1 && j==x_Exit + 1) {
                         System.out.print("  ");
+                        boardString += "  ";
                     } else if (j==0) {
                         System.out.print("╔═");
+                        boardString += "╔═";
                     } else if (j==this.width+1) {
                         System.out.print("╗");
+                        boardString += "╗";
                     } else {
                         System.out.print("══");
+                        boardString += "══";
                     }
                 } else if (i==this.height+1) {
                     if (i==y_Exit + 1 && j==x_Exit + 1) {
                         System.out.print("  ");
+                        boardString += "  ";
                     }
                     else if (j==0) {
                         System.out.print("╚═");
+                        boardString += "╚═";
                     } else if (j==this.width+1) {
                         System.out.print("╝");
+                        boardString += "╝";
                     } else {
                         System.out.print("══");
+                        boardString += "══";
                     }
                 } else if (j == 0) {
                     if (i == y_Exit + 1 && j == x_Exit + 1) {
                         System.out.print(" "); // Kosongkan kiri
+                        boardString += " ";
                     } else {
                         System.out.print("║ ");
+                        boardString += "║ ";
                     }
                 } else if (j == width + 1) {
                     if (i == y_Exit + 1 && j == x_Exit + 1) {
                         System.out.print(" "); // Kosongkan kanan
+                        boardString += " ";
                     } else {
                         System.out.print("║");
+                        boardString += "║";
                     }
                 } else {
                     System.out.print(charBoard[i][j] + " ");
+                    boardString += charBoard[i][j] + " ";
                 }
             }
             System.err.println();
+            boardString += "\n";
         }
+
+        return boardString;
     }
 
     public void printBooleanBoard() {
@@ -455,7 +472,7 @@ public class Board {
         return code;
     }
 
-    public void printColouredBoard(State.Movement m) {
+    public String printColouredBoard(State.Movement m) {
         // Board of Characters
         char[][] charBoard = new char[this.height + 2][this.width + 2];
 
@@ -522,53 +539,72 @@ public class Board {
         }
 
         // Print the board
+        String boardString = "";
         for (int i = 0; i < this.height+2; i++) {
             for (int j = 0; j < this.width+2; j++) {
                 if (i==0) {
                     if (i==y_Exit + 1 && j==x_Exit + 1) {
                         System.out.print("  ");
+                        boardString += "  ";
                     } else if (j==0) {
                         System.out.print("╔═");
+                        boardString += "╔═";
                     } else if (j==this.width+1) {
                         System.out.print("╗");
+                        boardString += "╗";
                     } else {
                         System.out.print("══");
+                        boardString += "══";
                     }
                 } else if (i==this.height+1) {
                     if (i==y_Exit + 1 && j==x_Exit + 1) {
                         System.out.print("  ");
+                        boardString += "  ";
                     }
                     else if (j==0) {
                         System.out.print("╚═");
+                        boardString += "╚═";
                     } else if (j==this.width+1) {
                         System.out.print("╝");
+                        boardString += "╝";
                     } else {
                         System.out.print("══");
+                        boardString += "══";
                     }
                 } else if (j == 0) {
                     if (i == y_Exit + 1 && j == x_Exit + 1) {
                         System.out.print(" "); // Kosongkan kiri
+                        boardString += " ";
                     } else {
                         System.out.print("║ ");
+                        boardString += "║ ";
                     }
                 } else if (j == width + 1) {
                     if (i == y_Exit + 1 && j == x_Exit + 1) {
                         System.out.print(" "); // Kosongkan kanan
+                        boardString += " ";
                     } else {
                         System.out.print("║");
+                        boardString += "║";
                     }
                 } else {
                     if (i >= y_Initial + 1 && i <= y_Final + 1 && j >= x_Initial + 1 && j <= x_Final + 1 && (m.direction == Direction.RIGHT || m.direction == Direction.LEFT)) {
                         System.out.print("\u001B[104m\u001B[97m" + charBoard[i][j] + " " + "\u001B[0m");
+                        boardString += charBoard[i][j] + " ";
                     } else if (i >= y_Initial + 1 && i <= y_Final + 1 && j >= x_Initial + 1 && j <= x_Final + 1 && (m.direction == Direction.UP || m.direction == Direction.DOWN)){
                         System.out.print("\u001B[104m\u001B[97m" + charBoard[i][j] + "\u001B[0m ");
+                        boardString += charBoard[i][j] + " ";
                     } else {
-                    System.out.print(charBoard[i][j] + " ");
+                        System.out.print(charBoard[i][j] + " ");
+                        boardString += charBoard[i][j] + " ";
                     }
                 }
             }
             System.out.println();
+            boardString += "\n";
         }
+
+        return boardString;
     }
     
     // DEBUGGING

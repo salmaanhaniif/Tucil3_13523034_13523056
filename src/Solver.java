@@ -64,7 +64,7 @@ public class Solver {
         }
     }
 
-    public void solve() {
+    public String solve() {
         queue.clear();
         visited.clear();
         
@@ -79,8 +79,7 @@ public class Solver {
             
             if (currentState.getBoard().isGoal()) {
                 System.out.println("Found a solution!");
-                printSolutionPath(currentState);
-                return;
+                return printSolutionPath(currentState);
             }
             
             visited.add(currentState.getBoard().hashCodeSigma());
@@ -89,36 +88,70 @@ public class Solver {
         }
         
         System.out.println("No solution found.");
+        return "No solution found.";
     }
 
-    private void printSolutionPath(State state) {
+    private String printSolutionPath(State state) {
         List<State> path = new ArrayList<>();
+        String output = "";
         while (state != null) {
             path.add(state);
             state = state.getParent();
         }
         Collections.reverse(path);
         System.out.println("Solution path (total moves: " + (path.size()) + "):");
+        output += "Solution path (total moves: " + (path.size()) + "):\n";
         int i = 0;
         for (State s : path) {
             if (i==0) {
                 System.out.println("Initial State");
+                output += "Initial State\n";
             } else {
                 System.out.println("Step " + (i) + ":");
+                output += "Step " + (i) + ":\n";
             }
             if (s.getMovement() != null) {
-                System.out.println("Move: " + s.getMovement().getSymbol() + " Direction: " + s.getMovement().getDirection() + " Distance: " + s.getMovement().getDistance());
+                System.out.println(s.getMovement().getSymbol() + " - " + s.getMovement().getDirection() + " - " + s.getMovement().getDistance());
+                output += s.getMovement().getSymbol() + " - " + s.getMovement().getDirection() + " - " + s.getMovement().getDistance() + "\n";
             }
             i++;
             if (s.getMovement() == null) {
-                s.getBoard().printBoard();
+                output += s.getBoard().printBoard();
             } else {
-                s.getBoard().printColouredBoard(s.getMovement());
+                output += s.getBoard().printColouredBoard(s.getMovement());
             }
         }
         State lastState = path.get(path.size() - 1);
-        lastState.getBoard().removePiece(lastState.getBoard().getPrimaryPiece().getSymbol());
-        System.out.println("Final State:");
-        lastState.getBoard().printBoard();
+        Board newBoard = lastState.getBoard().clone();
+        Direction lastDir;
+        int lastDist;
+        if (newBoard.getPrimaryPiece().getOrientation() == Orientation.VERTICAL) {
+            if (newBoard.getYExit() > newBoard.getPrimaryPiece().getY()) {
+                lastDir = Direction.DOWN;
+                lastDist = newBoard.getYExit() - newBoard.getPrimaryPiece().getY() - newBoard.getPrimaryPiece().getSize();
+            } else {
+                lastDir = Direction.UP;
+                lastDist = newBoard.getPrimaryPiece().getY() - newBoard.getYExit() + 1;
+            }
+        } else {
+            if (newBoard.getXExit() > newBoard.getPrimaryPiece().getX()) {
+                lastDir = Direction.RIGHT;
+                lastDist = newBoard.getXExit() - newBoard.getPrimaryPiece().getX() - newBoard.getPrimaryPiece().getSize();
+            } else {
+                lastDir = Direction.LEFT;
+                lastDist = newBoard.getPrimaryPiece().getX() - newBoard.getXExit() + 1;
+            }
+        }
+        newBoard.movePiece('P', lastDir, lastDist);
+
+        State finalState = new State(newBoard, false, 0);
+        finalState.setMovement(new State.Movement('P', lastDir, lastDist));
+        System.out.println("Step " + (path.size()) + ":");
+        output += "Step " + (path.size()) + ":\n";
+        System.out.println(finalState.getMovement().getSymbol() + " - " + finalState.getMovement().getDirection() + " - " + finalState.getMovement().getDistance());
+        output += finalState.getMovement().getSymbol() + " - " + finalState.getMovement().getDirection() + " - " + finalState.getMovement().getDistance() + "\n";
+        output += finalState.getBoard().printColouredBoard(finalState.getMovement());
+
+        return output;
     }
 }

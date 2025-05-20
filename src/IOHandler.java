@@ -1,6 +1,10 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
@@ -215,5 +219,23 @@ public class IOHandler {
         } catch (IllegalArgumentException e) {
             throw e;
         }
+    }
+
+    public static void outputToFile(String filePath, String output) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            writer.write(output);
+        }
+    }
+
+    public static String addOutputPrefix(String filePath) {
+        Path path = Paths.get(filePath);
+        Path parent = path.getParent();  // May be null if path is just a filename
+        String fileName = path.getFileName().toString();
+        
+        String newFileName = "output-" + fileName;
+        
+        return (parent != null)
+            ? parent.resolve(newFileName).toString()
+            : newFileName;
     }
 }
