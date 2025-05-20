@@ -75,7 +75,7 @@ public class Main {
 
     public static void n_algoMenu(Scanner scanner) {
         while (true) { 
-            System.out.print("Enter n: ");
+            System.out.print("Enter n for beam search: ");
             String n = scanner.nextLine();
             try {
                 n_algo = Integer.parseInt(n);
@@ -91,7 +91,7 @@ public class Main {
     public static void heuristicMenu(Scanner scanner) {
         while (true) { 
             System.out.println("Heuristics");
-            System.out.println("1. Manhattan");
+            System.out.println("1. Distance to Exit");
             System.out.println("2. Blocker Count");
             System.out.print("Enter heuristic number: ");
             String algorithm = scanner.nextLine();
