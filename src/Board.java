@@ -395,8 +395,8 @@ public class Board {
             for (int j = 0; j < this.width+2; j++) {
                 if (i==0) {
                     if (i==y_Exit + 1 && j==x_Exit + 1) {
-                        System.out.print("  ");
-                        boardString += "  ";
+                        System.out.print("^^");
+                        boardString += "^^";
                     } else if (j==0) {
                         System.out.print("╔═");
                         boardString += "╔═";
@@ -409,8 +409,8 @@ public class Board {
                     }
                 } else if (i==this.height+1) {
                     if (i==y_Exit + 1 && j==x_Exit + 1) {
-                        System.out.print("  ");
-                        boardString += "  ";
+                        System.out.print("vv");
+                        boardString += "vv";
                     }
                     else if (j==0) {
                         System.out.print("╚═");
@@ -424,16 +424,16 @@ public class Board {
                     }
                 } else if (j == 0) {
                     if (i == y_Exit + 1 && j == x_Exit + 1) {
-                        System.out.print(" "); // Kosongkan kiri
-                        boardString += " ";
+                        System.out.print("<"); // Kosongkan kiri
+                        boardString += "<";
                     } else {
                         System.out.print("║ ");
                         boardString += "║ ";
                     }
                 } else if (j == width + 1) {
                     if (i == y_Exit + 1 && j == x_Exit + 1) {
-                        System.out.print(" "); // Kosongkan kanan
-                        boardString += " ";
+                        System.out.print(">"); // Kosongkan kanan
+                        boardString += ">";
                     } else {
                         System.out.print("║");
                         boardString += "║";
@@ -544,8 +544,8 @@ public class Board {
             for (int j = 0; j < this.width+2; j++) {
                 if (i==0) {
                     if (i==y_Exit + 1 && j==x_Exit + 1) {
-                        System.out.print("  ");
-                        boardString += "  ";
+                        System.out.print("\u001B[32m^^\u001B[0m");
+                        boardString += "^^";
                     } else if (j==0) {
                         System.out.print("╔═");
                         boardString += "╔═";
@@ -558,8 +558,8 @@ public class Board {
                     }
                 } else if (i==this.height+1) {
                     if (i==y_Exit + 1 && j==x_Exit + 1) {
-                        System.out.print("  ");
-                        boardString += "  ";
+                        System.out.print("\u001B[32mvv\u001B[0m");
+                        boardString += "vv";
                     }
                     else if (j==0) {
                         System.out.print("╚═");
@@ -573,29 +573,35 @@ public class Board {
                     }
                 } else if (j == 0) {
                     if (i == y_Exit + 1 && j == x_Exit + 1) {
-                        System.out.print(" "); // Kosongkan kiri
-                        boardString += " ";
+                        System.out.print("\u001B[32m<\u001B[0m"); // Kosongkan kiri
+                        boardString += "<";
                     } else {
                         System.out.print("║ ");
                         boardString += "║ ";
                     }
                 } else if (j == width + 1) {
                     if (i == y_Exit + 1 && j == x_Exit + 1) {
-                        System.out.print(" "); // Kosongkan kanan
-                        boardString += " ";
+                        System.out.print("\u001B[32m>\u001B[0m"); // Kosongkan kanan
+                        boardString += ">";
                     } else {
                         System.out.print("║");
                         boardString += "║";
                     }
                 } else {
                     if (i >= y_Initial + 1 && i <= y_Final + 1 && j >= x_Initial + 1 && j <= x_Final + 1 && (m.direction == Direction.RIGHT || m.direction == Direction.LEFT)) {
+                        if (charBoard[i][j] == 'P') System.out.print("\u001B[31m");
                         System.out.print("\u001B[104m\u001B[97m" + charBoard[i][j] + " " + "\u001B[0m");
+                        if (charBoard[i][j] == 'P') System.out.print("\u001B[0m");
                         boardString += charBoard[i][j] + " ";
                     } else if (i >= y_Initial + 1 && i <= y_Final + 1 && j >= x_Initial + 1 && j <= x_Final + 1 && (m.direction == Direction.UP || m.direction == Direction.DOWN)){
+                        if (charBoard[i][j] == 'P') System.out.print("\u001B[31m");
                         System.out.print("\u001B[104m\u001B[97m" + charBoard[i][j] + "\u001B[0m ");
+                        if (charBoard[i][j] == 'P') System.out.print("\u001B[0m");
                         boardString += charBoard[i][j] + " ";
                     } else {
+                        if (charBoard[i][j] == 'P') System.out.print("\u001B[31m");
                         System.out.print(charBoard[i][j] + " ");
+                        if (charBoard[i][j] == 'P') System.out.print("\u001B[0m");
                         boardString += charBoard[i][j] + " ";
                     }
                 }
